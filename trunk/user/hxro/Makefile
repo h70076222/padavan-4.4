@@ -4,4 +4,4 @@ all:
 clean:
 
 romfs:
-	$(ROMFSINST) /etc_ro/hxro.sh
+	$(ROMFSINST) -p +x $(THISDIR)hxro.sh /etc_ro/hxro.sh
