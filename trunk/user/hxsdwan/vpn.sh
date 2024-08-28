@@ -40,16 +40,15 @@ cat <<'EOF10'>> "$boot"
 sleep 20 && /usr/bin/vpn.sh &
 :<<'________'
 VPN异地组网配置区
+串码 yhtfhgdf #组网串码 所有同一组网必须同一名 如：abcd
 #以下改IP参数，虚似IP最后一位也要对应改，和-d要一起改
 #如改本地192.168.30.1,-d 就改30 -o改10.26.0.30
 #远端改(另一个路由)-i 192.168.30.0/24,10.26.0.30
--k abc   #串码 所有组网相同
-#-s        #服务器地址
--d 20     #路由的名字，不能和组网同名 如：-d  1 2 3
--i 192.168.10.0/24,10.26.0.10   # 对端路由IP,对端路由的虚拟IP 例如:-i 192.168.1.0/24,10.26.0.11
-#-i 192.168.1.0/24,10.26.0.11  #多个组网可多个-i就是远端有内个就几个-i前面#列示不用
--o 192.168.20.0/24 #   本路由IP 如：-o 192.168.1.0/24
---ip 10.26.0.20 #   本路由的虚拟IP 如：--ip 10.26.0.11
+#服务器
+路由的名 22     #路由的名字，不能和组网同名 如：-d  1 2 3
+对网路由IP 192.168.12.0/24,10.26.0.12   # 对端路由IP,对端路由的虚拟IP 例如:-i 192.168.1.0/24,10.26.0.11
+本机IP 192.168.33.0/24 #   本路由IP 如：-o 192.168.1.0/24
+本机虚拟IP 10.26.0.33 #   本路由的虚拟IP 如：--ip 10.26.0.11
 
 ________
 EOF10
@@ -57,12 +56,13 @@ EOF10
 fi
 
 fi
- [ -n "`cat $boot | grep -o '\-k'`" ] && aswr=$(cat $boot | grep '\-k' | awk -F '#' '{print $1}' )
+  
+ [ -n "`cat $boot | grep -o '\串码'`" ] && port=$(cat $boot | grep '\串码' | awk -F '\串码' '{print $2}'|awk -F '#' '{print $1}' ) 
  [ -n "`cat $boot | grep -o '\-s'`" ] && white=$(cat $boot | grep '\-s' | awk -F '#' '{print $1}' )
- [ -n "`cat $boot | grep -o '\-d'`" ] && white_token=$(cat $boot | grep '\-d' | awk -F '#' '{print $1}' )
- [ -n "`cat $boot | grep -o '\-i'`" ] && gateway=$(cat $boot | grep '\-i' | awk -F '#' '{print $1}' )
- [ -n "`cat $boot | grep -o '\-o'`" ] && netmask=$(cat $boot | grep '\-o' | awk -F '#' '{print $1}' )
- [ -n "`cat $boot | grep -o '\-ip'`" ] && finger=$(cat $boot | grep '\-ip' | awk -F '#' '{print $1}' )
+ [ -n "`cat $boot | grep -o '\路由的名'`" ] && white_token=$(cat $boot | grep '\路由的名' | awk -F '\路由的名' '{print $2}'|awk -F '#' '{print $1}' )
+ [ -n "`cat $boot | grep -o '\对网路由IP'`" ] && gateway=$(cat $boot | grep '\对网路由IP' | awk -F '\对网路由IP' '{print $2}'|awk -F '#' '{print $1}' )
+ [ -n "`cat $boot | grep -o '\本机IP'`" ] && netmask=$(cat $boot | grep '\本机IP' | awk -F '\本机IP' '{print $2}'|awk -F '#' '{print $1}' )
+ [ -n "`cat $boot | grep -o '\本机虚拟IP'`" ] && finger=$(cat $boot | grep '\本机虚拟IP' | awk -F '\本机虚拟IP' '{print $2}'|awk -F '#' '{print $1}' )
 
  
 echo "./vpn $aswr $white $white_token $gateway $netmask &"
