@@ -766,9 +766,9 @@ struct nvram_pair router_defaults[] = {
 	{ "wyy_staticnum_x", "0" },
 	
 	/*Zerotier*/
-	{ "zerotier_enable", "1" },
-	{ "zerotier_id", "0cccb752f75548e5" },
-	{ "zerotier_nat", "1" },
+	{ "zerotier_enable", "0" },
+	{ "zerotier_id", "" },
+	{ "zerotier_nat", "0" },
 	{ "zerotier_secret", "" },
 	{ "zero_staticnum_x", "0" },
 
