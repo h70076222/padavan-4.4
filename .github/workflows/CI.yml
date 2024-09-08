@@ -1,4 +1,4 @@
-name: PSG1208
+name: E8820V2
 on: 
   release:
     types: [published]
@@ -37,7 +37,7 @@ jobs:
     
     - name: Build Firmware
       env:
-        TNAME: PSG1208
+        TNAME: E8820V2
       run: |
         cd /opt/padavan/trunk
         if [ ! -f configs/templates/$TNAME.config ] ; then
