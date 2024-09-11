@@ -5,5 +5,5 @@
 ##################################################################
 
 CFLAGS += -DBOARD_XY_C1
-BOARD_NUM_USB_PORTS=0
+BOARD_NUM_USB_PORTS=2
 CONFIG_BOARD_RAM_SIZE=128
