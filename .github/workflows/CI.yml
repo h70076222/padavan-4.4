@@ -1,4 +1,4 @@
-name: XY-C1
+name: TX18NVNW
 on: 
   release:
     types: [published]
@@ -37,7 +37,7 @@ jobs:
     
     - name: Build Firmware
       env:
-        TNAME: XY-C1
+        TNAME: TX18NVNW
       run: |
         cd /opt/padavan/trunk
         if [ ! -f configs/templates/$TNAME.config ] ; then
