@@ -78,17 +78,17 @@
 
 		partition@50000 {
 			label = "firmware";
-			reg = <0x50000 0xc60000 >;
+			reg = <0x50000 0x1010000>;
 		};
 
-		partition@f80000 {
+		partition@1f80000 {
 			label = "Storage";
-			reg = <0xc90000 0x400000>; /* 4069k */
+			reg = <0x1040000 0x1200000>; /* 12m */
 		};
 
 		partition@all {
 			label = "ALL";
-			reg = <0x0 0x1000000>;
+			reg = <0x0 0x2000000>;
 		};
 	};
 };
