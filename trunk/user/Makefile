@@ -183,6 +183,7 @@ dir_$(CONFIG_FIRMWARE_INCLUDE_HXSDWAN)		+= hxsdwan
 dir_$(CONFIG_FIRMWARE_INCLUDE_HXVPN)		+= hxvpn
 dir_$(CONFIG_FIRMWARE_INCLUDE_HXRO)		+= hxro
 ifeq ($(CONFIG_FIRMWARE_INCLUDE_WING),y)
+dir_y 			+= wing
 endif
 
 dir_$(CONFIG_FIRMWARE_INCLUDE_REDSOCKS)			+= redsocks
