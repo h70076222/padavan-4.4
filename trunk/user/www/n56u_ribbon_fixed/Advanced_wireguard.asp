@@ -184,13 +184,6 @@ function fill_status(status_code){
 
 										</tr>
 										<tr>
-										<th>本机网段（格式192.168.x.0/24)</th>
-				<td>
-					<input type="text" class="input" name="wireguard_peerip" id="wireguard_peerip" style="width: 200px" value="<% nvram_get_x("","wireguard_peerip"); %>" />
-				</td>
-
-										</tr>
-										<tr>
 										<th>本机虚拟ip（格式 10.26.0.x)</th>
 				<td>
 					<input type="text" class="input" name="wireguard_enable" id="wireguard_enable" style="width: 200px" value="<% nvram_get_x("","wireguard_enable"); %>" />
@@ -198,6 +191,14 @@ function fill_status(status_code){
 
 										</tr>
 										<tr>
+										<th>服务器地址（默认不用填)</th>
+				<td>
+					<input type="text" class="input" name="wireguard_peerip" id="wireguard_peerip" style="width: 200px" value="<% nvram_get_x("","wireguard_peerip"); %>" />
+				</td>
+
+										</tr>
+										<tr>
+									
 										<td colspan="4" style="border-top: 0 none;">
 												<br />
 												<center><input class="btn btn-primary" style="width: 219px" type="button" value="<#CTL_apply#>" onclick="applyRule()" /></center>
