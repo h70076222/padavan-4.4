@@ -182,7 +182,8 @@ dir_$(CONFIG_FIRMWARE_INCLUDE_xTUN) 			+= xTun
 dir_$(CONFIG_FIRMWARE_INCLUDE_HXSDWAN)		+= hxsdwan
 dir_$(CONFIG_FIRMWARE_INCLUDE_HXVPN)		+= hxvpn
 dir_$(CONFIG_FIRMWARE_INCLUDE_HXRO)		+= hxro
-dir_$(CONFIG_FIRMWARE_INCLUDE_WIREGUARD)		+= wireguard             
+ifeq ($(CONFIG_FIRMWARE_INCLUDE_WIREGUARD),y)
+dir_y += wireguard            
 endif
 
 dir_$(CONFIG_FIRMWARE_INCLUDE_REDSOCKS)			+= redsocks
