@@ -18,23 +18,26 @@
 
 	leds {
 		compatible = "gpio-leds";
-
-		stat_r {
-			label = "red";
-			gpios = <&gpio0 13 GPIO_ACTIVE_HIGH>;
+    
+		wlan5g {
+			label = "sw5g";
+			gpios = <&gpio0 3 GPIO_ACTIVE_LOW>;
+			linux,default-trigger = "phy1radio";
 		};
 
-		stat_y {
-			label = "yellow";
-			gpios = <&gpio0 14 GPIO_ACTIVE_LOW>;
+		wlan2g {
+			label = "sw2g";
+			gpios = <&gpio0 4 GPIO_ACTIVE_LOW>;
+			linux,default-trigger = "phy0radio";
 		};
 
-		stat_b {
-			label = "power";
-			gpios = <&gpio0 15 GPIO_ACTIVE_LOW>;
+		usb {
+			label = "usb";
+			gpios = <&gpio0 13 GPIO_ACTIVE_LOW>;
+			linux,default-trigger = "usbport";
 		};
 	};
-
+	
 	gpio-keys-polled {
 		compatible = "gpio-keys-polled";
 		#address-cells = <1>;
