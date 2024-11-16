@@ -573,6 +573,9 @@ if (found_app_aliddns()){
 } else if (found_app_wireguard()){
 	menuL2_link.push(wireguard_array[1]);
 } else menuL2_link.push("");
+} else if (found_app_koolproxy()){
+	menuL2_link.push(koolproxy_array[1]);
+} else menuL2_link.push("");
 
 if (found_app_aldriver()){
 	menuL2_link.push(aldriver_arry[1]);
