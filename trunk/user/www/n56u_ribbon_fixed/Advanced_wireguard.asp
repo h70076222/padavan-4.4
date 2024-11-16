@@ -124,8 +124,8 @@ function fill_status(status_code){
 							<div class="round_bottom">
 							<div>
 							    <ul class="nav nav-tabs" style="margin-bottom: 10px;">
-								<li id="allink" style="display:none">
-								    <a href="Advanced_aliddns.asp"><#menu5_23_1#></a>
+								<li id="ddlink" style="display:none">
+								<a href="Advanced_ddnsto.asp"><#menu5_23_1#></a>
 								</li>
 								<li id="zelink" style="display:none">
 								    <a href="Advanced_zerotier.asp"><#menu5_32_1#></a>
@@ -133,8 +133,8 @@ function fill_status(status_code){
 								<li class="active">
 								    <a href="Advanced_wireguard.asp"><#menu5_35_1#></a>
 								</li>
-								 <li class="active">
-								    <a href="Advanced_koolproxy.asp"><#menu5_26_1#></a>
+								<li class="active">
+								   <a href="Advanced_aliddns.asp"><menu5_34_1#></a>
 								</li>
 							    </ul>
 							</div>
