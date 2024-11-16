@@ -501,6 +501,34 @@ struct nvram_pair router_defaults[] = {
 	{ "dr_staticnetmask_x", "0" },
 	{ "dr_staticgateway_x", "" },
 
+#if defined(APP_KOOLPROXY)
+	/* koolproxy AD */
+	{ "koolproxy_enable", "0"},
+	{ "koolproxy_https", "0"},
+	{ "koolproxy_set", "0"},
+	{ "hosts_ad", "0"},
+	{ "tv_hosts", "0"},
+	{ "koolproxy_video", "0"},
+	{ "koolproxy_cpu", "0"},
+	{ "koolproxy_prot", "0"},
+	{ "rules_list", "0"},
+	{ "koolproxy_txt_0", "https://cdn.jsdelivr.net/gh/houzi-/CDN/koolproxy.txt"},
+	{ "daily_txt_0", "https://cdn.jsdelivr.net/gh/houzi-/CDN/daily.txt"},
+	{ "kp_dat_0", "https://cdn.jsdelivr.net/gh/houzi-/CDN/kp.dat"},
+	{ "koolproxy_txt_1", "https://gitee.com/bkye/kp/raw/master/mrules/koolproxy.txt"},
+	{ "daily_txt_1", "https://gitee.com/bkye/kp/raw/master/mrules/daily.txt"},
+	{ "kp_dat_1", "https://dev.tencent.com/u/dtid_39de1afb676d0d78/p/kp/git/raw/master/kp.dat"},
+	{ "koolproxy_txt_2", ""},
+	{ "daily_txt_2", ""},
+	{ "kp_dat_2", ""},
+	{ "koolproxy_update", "0"} ,
+	{ "koolproxy_update_hour", "3" },
+	{ "kolproxy_update_min", "00" },
+	{ "ss_DNS_Redirect", "0" },
+	{ "kp_ip_x", "0" },
+	{ "kp_staticnum_x", "0" },
+#endif
+
 #if defined(APP_SCUT)
 	/* scutclient related */
 	{ "scutclient_enable", "0" },
