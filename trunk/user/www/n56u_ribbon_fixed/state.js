@@ -478,7 +478,7 @@ if (found_app_aliddns()){
 }else if (found_app_wireguard()){
 	wireguard_array = new Array("","Advanced_wireguard.asp");
 	tablink[16] = (wireguard_array);
-}else if (found_app_wireguard()){
+}else if (found_app_koolproxy()){
 	wireguard_array = new Array("","Advanced_koolproxy.asp");
 	tablink[16] = (koolproxy_array);	
 }
