@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title><#Web_Title#> - <menu5_34#></title>
+<title><#Web_Title#> - <#menu5_23#></title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="-1">
@@ -151,7 +151,7 @@ function change_aliddns_enable_bridge(mflag){
                                     <a href="Advanced_wireguard.asp"><#menu5_35_1#></a>
                                 </li>
 								<li class="active">
-                                    <a href="Advanced_aliddns.asp"><menu5_34_1#></a>
+                                    <a href="Advanced_aliddns.asp"><menu5_23_1#></a>
                                 </li>
                             </ul>
                         </div>
