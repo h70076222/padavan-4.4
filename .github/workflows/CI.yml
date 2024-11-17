@@ -1,4 +1,4 @@
-name: TX180X
+name: K2P-USB
 on: 
   release:
     types: [published]
@@ -37,7 +37,7 @@ jobs:
     
     - name: Build Firmware
       env:
-        TNAME: TX180X
+        TNAME: K2P-USB
       run: |
         cd /opt/padavan/trunk
         if [ ! -f configs/templates/$TNAME.config ] ; then
