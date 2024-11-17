@@ -37,27 +37,18 @@ $j(document).ready(function() {
 function initial(){
 	show_banner(2);
 	show_menu(5,17,0);
-	show_footer();
 	showmenu();
-	change_aliddns_enable_bridge(1);
-
-	if (!login_safe())
-		textarea_scripts_enabled(0);
+	show_footer();
 }
 
 function showmenu(){
-showhide_div('zelink', found_app_zerotier());
 showhide_div('ddlink', found_app_ddnsto());
+showhide_div('zelink', found_app_zerotier());
 showhide_div('wilink', found_app_wireguard());
 }
 
-function textarea_scripts_enabled(v){
-	inputCtrl(document.form['scripts.ddns_script.sh'], v);
-}
-
 function applyRule(){
-//	if(validForm()){
-		showLoading();
+	showLoading();
 		
 		document.form.action_mode.value = " Apply ";
 		document.form.current_page.value = "/Advanced_aliddns.asp";
