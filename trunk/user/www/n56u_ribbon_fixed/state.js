@@ -468,7 +468,7 @@ if (found_app_smartdns()){
 }
 if (found_app_ddnsto()){
 	aliddns_array = new Array("","Advanced_ddnsto.asp");
-	tablink[16] = (aliddns_array);
+	tablink[16] = (ddnsto_array);
 }else if (found_app_zerotier()){
 	zerotier_array = new Array("","Advanced_zerotier.asp");
 	tablink[16] = (zerotier_array);
@@ -477,7 +477,7 @@ if (found_app_ddnsto()){
 	tablink[16] = (wireguard_array);
 }else if (found_app_aliddns()){
 	ddnsto_array = new Array("","Advanced_aliddns.asp");
-	tablink[16] = (ddnsto_array);
+	tablink[16] = (aliddns_array);
 }
 if (found_app_aldriver()){
 	aldriver_arry = new Array("","Advanced_aliyundrive.asp");
@@ -521,7 +521,7 @@ if (found_app_smartdns()||found_app_adguardhome()){
 	menuL2_title.push("<#menu5_29#>");
 } else menuL2_title.push("");
 
-if (found_app_aliddns()||found_app_zerotier()||found_app_wireguard()||found_app_ddnsto()){
+if (found_app_ddnsto()||found_app_zerotier()||found_app_wireguard()||found_app_aliddns()){
 	menuL2_title.push("<#menu5_30#>");
 } else menuL2_title.push("");
 
