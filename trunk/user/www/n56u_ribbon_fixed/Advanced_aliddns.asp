@@ -142,7 +142,7 @@ function change_aliddns_enable_bridge(mflag){
 							<div>
                             <ul class="nav nav-tabs" style="margin-bottom: 10px;">
 								<li id="ddlink" style="display:none">
-                                    <a href="Advanced_ddnsto.asp"><#menu5_23_1#></a>
+                                    <a href="Advanced_ddnsto.asp"><#menu5_32_1#></a>
                                 </li>
 								<li id="zelink" style="display:none">
                                     <a href="Advanced_zerotier.asp"><#menu5_32_1#></a>
