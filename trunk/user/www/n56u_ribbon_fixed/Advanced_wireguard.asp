@@ -44,7 +44,6 @@ function initial(){
 }
 
 function showmenu(){
-	showhide_div('allink', found_app_aliddns());
 	showhide_div('dtolink', found_app_ddnsto());
 	showhide_div('zelink', found_app_zerotier());
 }
