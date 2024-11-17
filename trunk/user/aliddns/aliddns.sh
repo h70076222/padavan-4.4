@@ -78,8 +78,6 @@ test ! -x "${vpns}" && chmod +x "${vpns}"
 if [ "${vpns}" == "" ] ; then
 vpns="/usr/bin/vpns"
 
-ln -sf /usr/bin/static/ /home/root
-
 
 ##判断文件有无执行权限，无赋予运行权限
 
