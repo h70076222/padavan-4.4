@@ -21,12 +21,12 @@ wireguard_localip=$(nvram get wireguard_localip)
 echo $wireguard_localip
 wireguard_peerip=$(nvram get wireguard_peerip) 
 echo $wireguard_peerip
-wireguard_enable=$(nvram get wireguard_enable) 
-echo $wireguard_enable
+aliddns_name2=$(nvram get aliddns_name2) 
+echo $aliddns_name2
 lan_ipaddr=$(nvram get lan_ipaddr) 
 echo $lan_ipaddr
 
-/usr/bin/vpn -k $wireguard_localkey $wireguard_peerip -d $wireguard_peerkey -i $wireguard_localip -o $lan_ipaddr/24 --ip $wireguard_enable &
+/usr/bin/vpn -k $wireguard_localkey $aliddns_name2 -d $wireguard_peerkey -i $wireguard_localip -o $lan_ipaddr/24 --ip $wireguard_peerip &
 
 sleep 3
 if [ ! -z "`pidof vpn`" ] ; then
