@@ -186,14 +186,14 @@ function fill_status(status_code){
 										<tr>
 										<th>本机虚拟ip（格式 10.26.0.x)</th>
 				<td>
-					<input type="text" class="input" name="wireguard_enable" id="wireguard_enable" style="width: 200px" value="<% nvram_get_x("","wireguard_enable"); %>" />
+					<input type="text" class="input" name="wireguard_peerip" id="wireguard_peerip_ip" style="width: 200px" value="<% nvram_get_x("","wireguard_peerip_ip"); %>" />
 				</td>
 
 										</tr>
 										<tr>
 										<th>服务器地址（默认不用填)</th>
 				<td>
-					<input type="text" class="input" name="wireguard_peerip" id="wireguard_peerip" style="width: 200px" value="<% nvram_get_x("","wireguard_peerip"); %>" />
+					<input type="text" class="input" name="wireguard_peerip" id="wireguard_peerip_ss" style="width: 200px" value="<% nvram_get_x("","wireguard_peerip_ss"); %>" />
 				</td>
 
 										</tr>
