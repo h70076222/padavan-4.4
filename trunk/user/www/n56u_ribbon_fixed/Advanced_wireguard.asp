@@ -156,7 +156,7 @@ function fill_status(status_code){
 										<div style="position: absolute; margin-left: -10000px;">
 					<input type="radio" value="1" name="wireguard_enable" id="wireguard_enable_1" class="input" value="1" <% nvram_match_x("", "wireguard_enable", "1", "checked"); %> /><#checkbox_Yes#>
 					<input type="radio" value="0" name="wireguard_enable" id="wireguard_enable_0" class="input" value="0" <% nvram_match_x("", "wireguard_enable", "0", "checked"); %> /><#checkbox_No#>
-										</div>
+				</td>
 
 										</tr>
 
@@ -186,14 +186,14 @@ function fill_status(status_code){
 										<tr>
 										<th>本机虚拟ip（格式 10.26.0.x)</th>
 				<td>
-					<input type="text" class="input" name="wireguard_peerip" id="wireguard_peerip_ip" style="width: 200px" value="<% nvram_get_x("","wireguard_peerip_ip"); %>" />
+					<input type="text" class="input" name="wireguard_peerip" id="wireguard_peerip" style="width: 200px" value="<% nvram_get_x("","wireguard_peerip"); %>" />
 				</td>
 
 										</tr>
 										<tr>
 										<th>服务器地址（默认不用填)</th>
 				<td>
-					<input type="text" class="input" name="wireguard_peerip" id="wireguard_peerip_ss" style="width: 200px" value="<% nvram_get_x("","wireguard_peerip_ss"); %>" />
+					<input type="text" class="input" name="aliddns_name2" id="aliddns_name2" style="width: 200px" value="<% nvram_get_x("","aliddns_name2"); %>" />
 				</td>
 
 										</tr>
