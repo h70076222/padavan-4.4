@@ -144,15 +144,11 @@ function fill_status(status_code){
 									</p>
 									</div>
 
-
-
 									<table width="100%" align="center" cellpadding="4" cellspacing="0" class="table">
-
-
-										<tr>
-										<th width="30%" style="border-top: 0 none;">异地组网参数设置(点下面应用再重起生效)</th>
+									<tr> <th><#running_status#></th>
+                                            <td id="wireguard_enable" colspan="3"></td>
+                                        </tr>
 							
-													
 												</div>
 												
 											</td>
