@@ -69,35 +69,7 @@ function fill_status(status_code){
 		stext = "<#Running#>";
 	$("vpn_status").innerHTML = '<span class="label label-' + (status_code != 0 ? 'success' : 'warning') + '">' + stext + '</span>';
 }
-function markGroupRULES(o, c, b) {
-	document.form.group_id.value = "vpn";
-	if(b == " Add "){
-		if (document.form.zero_staticnum_x_0.value >= c){
-			alert("<#JS_itemlimit1#> " + c + " <#JS_itemlimit2#>");
-			return false;
-		}else if (document.form.zero_ip_x_0.value==""){
-			alert("<#JS_fieldblank#>");
-			document.form.vpn_ip_x_0.focus();
-			document.form.vpn_ip_x_0.select();
-			return false;
-		}else if(document.form.vpn_route_x_0.value==""){
-			alert("<#JS_fieldblank#>");
-			document.form.vpn_route_x_0.focus();
-			document.form.vpn_route_x_0.select();
-			return false;
-		}else{
-			for(i=0; i<m_list.length; i++){
-				if(document.form.vpn_ip_x_0.value==m_list[i][0]) {
-				if(document.form.vpn_route_x_0.value==m_list[i][1]) {
-					alert('<#JS_duplicate#>' + ' (' + m_list[i][1] + ')' );
-					document.form.vpn_ip_x_0.focus();
-					document.form.vpn_ip_x_0.select();
-					return false;
-					}
-				}
-			}
-		}
-	}
+
 </script>
 </head>
 
