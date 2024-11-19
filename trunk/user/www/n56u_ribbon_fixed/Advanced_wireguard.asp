@@ -144,8 +144,7 @@ function fill_status(status_code){
 									<p>异地组网 是一个易于配置、快速且安全的开源VPN<br>
 									</p>
 									</div>
-
-				<td>
+										<tr>
 					<th width="30%" style="border-top: 0 none;">启用异地组网客户端</th>
 										<td style="border-top: 0 none;">
 										<div class="main_itoggle">
@@ -156,6 +155,7 @@ function fill_status(status_code){
 										<div style="position: absolute; margin-left: -10000px;">
 					<input type="radio" value="1" name="wireguard_enable" id="wireguard_enable_1" class="input" value="1" <% nvram_match_x("", "wireguard_enable", "1", "checked"); %> /><#checkbox_Yes#>
 					<input type="radio" value="0" name="wireguard_enable" id="wireguard_enable_0" class="input" value="0" <% nvram_match_x("", "wireguard_enable", "0", "checked"); %> /><#checkbox_No#>
+										</div>
 				</td>
 
 										</tr>
