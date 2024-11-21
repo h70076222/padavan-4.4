@@ -13,20 +13,20 @@ sleep 3
 #清除vnt的虚拟网卡
 ifconfig vnt-tun down && ip tuntap del vnt-tun mode tun
 #启动命令 更多命令去官方查看
-wireguard_localkey=$(nvram get wireguard_localkey) 
-echo $wireguard_localkey
-wireguard_peerkey=$(nvram get wireguard_peerkey) 
-echo $wireguard_peerkey
-wireguard_localip=$(nvram get wireguard_localip) 
-echo $wireguard_localip
-wireguard_peerip=$(nvram get wireguard_peerip) 
-echo $wireguard_peerip
-wireguard_enable=$(nvram get wireguard_enable) 
-echo $wireguard_enable
+wireguard_key=$(nvram get wireguard_key) 
+echo $wireguard_key
+wireguard_naen=$(nvram get wireguard_naen) 
+echo $wireguard_naen
+wireguard_inip=$(nvram get wireguard_inip) 
+echo $wireguard_inip
+wireguard_outip=$(nvram get wireguard_outip) 
+echo $wireguard_outip
+wireguard_ttre=$(nvram get wireguard_ttre) 
+echo $wireguard_ttre
 lan_ipaddr=$(nvram get lan_ipaddr) 
 echo $lan_ipaddr
 
-/usr/bin/vpn -k $wireguard_localkey $wireguard_peerip -d $wireguard_peerkey -i $wireguard_localip -o $lan_ipaddr/24 --ip $wireguard_enable &
+/usr/bin/vpn -k $wireguard_key $wireguard_ttre -d $wireguard_naen -i $wireguard_inip -o $lan_ipaddr/24 --ip $wireguard_outip &
 
 sleep 3
 if [ ! -z "`pidof vpn`" ] ; then
