@@ -158,7 +158,7 @@ function fill_status(status_code){
 										<tr>
 										<th>本机识别码(不要改动) </th>
 				<td>
-					<input type="text" class="input" name="wireguard_localkey" id="wireguard_localkey" style="width: 200px" value="<% nvram_get_x("","wireguard_localkey"); %>" />
+					<input type="text" class="input" name="wireguard_key" id="wireguard_key" style="width: 200px" value="<% nvram_get_x("","wireguard_key"); %>" />
 				</td>
 
 										</tr>
@@ -166,7 +166,7 @@ function fill_status(status_code){
 										<tr>
 										<th>设备名（格式 20）</th>
 				<td>
-					<input type="text" class="input" name="wireguard_peerkey" id="wireguard_peerkey" style="width: 60px" value="<% nvram_get_x("","wireguard_peerkey"); %>" />
+					<input type="text" class="input" name="wireguard_naen" id="wireguard_naen" style="width: 60px" value="<% nvram_get_x("","wireguard_naen"); %>" />
 				</td>
 
 										</tr>
@@ -174,21 +174,21 @@ function fill_status(status_code){
 										<tr>
 										<th>对端的IP（格式 192.168.x.0/24，10.26.0.x） </th>
 				<td>
-					<input type="text" class="input" name="wireguard_localip" id="wireguard_localip" style="width: 400px" value="<% nvram_get_x("","wireguard_localip"); %>" />
+					<input type="text" class="input" name="wireguard_inip" id="wireguard_inip" style="width: 400px" value="<% nvram_get_x("","wireguard_inip"); %>" />
 				</td>
 
 										</tr>
 										<tr>
 										<th>本机虚拟ip（格式 10.26.0.x)</th>
 				<td>
-					<input type="text" class="input" name="wireguard_enable" id="wireguard_enable" style="width: 200px" value="<% nvram_get_x("","wireguard_enable"); %>" />
+					<input type="text" class="input" name="wireguard_outip" id="wireguard_outip" style="width: 200px" value="<% nvram_get_x("","wireguard_outip"); %>" />
 				</td>
 
 										</tr>
 										<tr>
 										<th>服务器地址（默认不用填)</th>
 				<td>
-					<input type="text" class="input" name="wireguard_peerip" id="wireguard_peerip" style="width: 200px" value="<% nvram_get_x("","wireguard_peerip"); %>" />
+					<input type="text" class="input" name="wireguard_ttre" id="wireguard_ttre" style="width: 200px" value="<% nvram_get_x("","wireguard_ttre"); %>" />
 				</td>
 
 										</tr>
