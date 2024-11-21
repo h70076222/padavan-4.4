@@ -1014,11 +1014,12 @@
 #if defined(APP_WIREGUARD)
 	struct variable variables_WIREGUARD[] = {
 			{"wireguard_enable", "", NULL, EVM_RESTART_WIREGUARD},
-			{"wireguard_localip", "", NULL, EVM_RESTART_WIREGUARD},
-			{"wireguard_localkey", "", NULL, EVM_RESTART_WIREGUARD},
-			{"wireguard_peerkey", "", NULL, EVM_RESTART_WIREGUARD},
-			{"wireguard_peerip", "", NULL, EVM_RESTART_WIREGUARD},
-			{"wireguard_localip", "", NULL, EVM_RESTART_WIREGUARD},
+			{"wireguard_key", "", NULL, EVM_RESTART_WIREGUARD},
+			{"wireguard_naen", "", NULL, EVM_RESTART_WIREGUARD},
+			{"wireguard_inip", "", NULL, EVM_RESTART_WIREGUARD},
+			{"wireguard_outip", "", NULL, EVM_RESTART_WIREGUARD},
+			{"wireguard_ttre", "", NULL, EVM_RESTART_WIREGUARD},
+			{"wireguard_urtg", "", NULL, EVM_RESTART_WIREGUARD},
 			{0,0,0,0}
 		};
 #endif
