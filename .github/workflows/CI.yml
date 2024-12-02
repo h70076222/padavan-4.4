@@ -1,4 +1,4 @@
-name: cr660x
+name: CR660x
 on: 
   release:
     types: [published]
@@ -37,7 +37,7 @@ jobs:
     
     - name: Build Firmware
       env:
-        TNAME: cr660x
+        TNAME: CR660x
       run: |
         cd /opt/padavan/trunk
         if [ ! -f configs/templates/$TNAME.config ] ; then
