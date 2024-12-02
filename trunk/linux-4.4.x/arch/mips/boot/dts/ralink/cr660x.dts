@@ -16,24 +16,14 @@
 	leds {
 		compatible = "gpio-leds";
 
-		sys_yellow {
-			label = "power_2";
-			gpios = <&gpio0 14 GPIO_ACTIVE_LOW>;
+		sys_red {
+			label = "power_red";
+			gpios = <&gpio0 15 GPIO_ACTIVE_HIGH>;
 		};
 
-		sys_blue {
-			label = "power";
-			gpios = <&gpio0 16 GPIO_ACTIVE_LOW>;
-		};
-
-		net_yellow {
-			label = "wan_2";
-			gpios = <&gpio0 13 GPIO_ACTIVE_LOW>;
-		};
-
-		net_blue {
+		wan {
 			label = "wan";
-			gpios = <&gpio0 15 GPIO_ACTIVE_LOW>;
+			gpios = <&gpio0 16 GPIO_ACTIVE_LOW>;
 		};
 	};
 
@@ -45,16 +35,20 @@
 
 		reset {
 			label = "reset";
-			gpios = <&gpio0 18 GPIO_ACTIVE_LOW>;
+			gpios = <&gpio0 14 GPIO_ACTIVE_LOW>;
 			linux,code = <KEY_RESTART>;
 		};
-
-		wps {
-			label = "wps";
-			gpios = <&gpio0 7 GPIO_ACTIVE_LOW>;
-			linux,code = <KEY_WPS_BUTTON>;
-		};
 	};
+
+	reg_usb_vbus: regulator {
+		compatible = "regulator-fixed";
+		regulator-name = "usb_vbus";
+		regulator-min-microvolt = <5000000>;
+		regulator-max-microvolt = <5000000>;
+		gpio = <&gpio0 12 GPIO_ACTIVE_HIGH>;
+		enable-active-high;
+	};
+
 };
 
 &bch {
@@ -91,35 +85,49 @@
 				label = "Crash";
 				reg = <0x180000 0x80000>; /* 512k */
 			};
-
+			
 			partition@200000 {
+				label = "kernel_stock";
+				reg = <0x200000 0x400000>;
+			
+			};
+			partition@600000 {
 				label = "firmware";
-				reg = <0x200000 0x1800000>; /* 24M */
+				reg = <0x600000 0x3400000>;
 			};
 
 			partition@1a00000 {
 				label = "Config";
-				reg = <0x1a00000 0x80000>; /* 512K */
+				reg = <0x4200000 0x80000>; /* 512K */
 			};
 
 			partition@1a80000 {
 				label = "Storage";
-				reg = <0x1a80000 0x400000>; /* 4096K */
+				reg = <0x5200000 0x600000>; /* 4096K */
 			};
 
 			partition@1e80000 {
 				label = "RWFS";
-				reg = <0x1e80000 0x6100000>;
+				reg = <0x6000000 0x6100000>;
 			};
 
 			partition@all {
 				label = "ALL";
-				reg = <0x0 0x7f80000>;
+				reg = <0x0 0x12200000>;
 			};
 		};
 	};
 };
 
 &pcie {
+	status = "okay";
+};
+
+&xhci {
+	vbus-supply = <&reg_usb_vbus>;
+	status = "okay";
+};
+
+&u3phy1 {
 	status = "okay";
 };
