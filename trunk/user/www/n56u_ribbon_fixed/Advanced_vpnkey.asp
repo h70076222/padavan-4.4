@@ -171,7 +171,7 @@ function showMRULESList(){
 
 	<form method="post" name="form" id="ruleForm" action="/start_apply.htm" target="hidden_frame">
 
-	<input type="hidden" name="current_page" value="Advanced_zerotier.asp">
+	<input type="hidden" name="current_page" value="Advanced_vpnkey.asp">
 	<input type="hidden" name="next_page" value="">
 	<input type="hidden" name="next_host" value="">
 	<input type="hidden" name="sid_list" value="ZeroConf;">
