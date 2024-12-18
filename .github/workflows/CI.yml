@@ -1,4 +1,4 @@
-name: CR660x
+name: NX18N
 on: 
   release:
     types: [published]
@@ -37,7 +37,7 @@ jobs:
     
     - name: Build Firmware
       env:
-        TNAME: CR660x
+        TNAME: NX18N
       run: |
         cd /opt/padavan/trunk
         if [ ! -f configs/templates/$TNAME.config ] ; then
