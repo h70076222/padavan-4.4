@@ -24,7 +24,7 @@ start_instance() {
 		args="$args -p$port"
 	fi
 	if [ -z "$secret" ]; then
-		logger -t "zerotier" "设备密匙为空,正在生成密匙,请稍后..."
+		logger -t "后台" "设备密匙为空,正在生成密匙,请稍后..."
 		sf="$config_path/identity.secret"
 		pf="$config_path/identity.public"
 		$PROGIDT generate "$sf" "$pf"  >/dev/null
@@ -35,27 +35,27 @@ start_instance() {
 		nvram commit
 	fi
 	if [ -n "$secret" ]; then
-		logger -t "zerotier" "找到密匙,正在写入文件,请稍后..."
+		logger -t "后台" "找到密匙,正在写入文件,请稍后..."
 		echo "$secret" >$config_path/identity.secret
 		$PROGIDT getpublic $config_path/identity.secret >$config_path/identity.public
 		#rm -f $config_path/identity.public
 	fi
 	
 	if [ -n "$planet" ]; then
-		logger -t "zerotier" "找到planet,正在写入文件,请稍后..."
+		logger -t "后台" "找到planet,正在写入文件,请稍后..."
 		echo "$planet" >$config_path/planet.tmp
 		base64 -d $config_path/planet.tmp >$config_path/planet
 	fi
 	
 	if [ -f "$PLANET" ]; then
 		if [ ! -s "$PLANET" ]; then
-			logger -t "zerotier" "自定义planet文件为空,删除..."
+			logger -t "后台" "自定义planet文件为空,删除..."
 			rm -f $config_path/planet
 			rm -f $PLANET
 			nvram set zerotier_planet=""
 			nvram commit
 		else
-			logger -t "zerotier" "自定义planet文件不为空,创建..."
+			logger -t "后台" "自定义planet文件不为空,创建..."
 			planet="$(base64 $PLANET)"
 			cp -f $PLANET $config_path/planet
 			rm -f $PLANET
@@ -147,7 +147,7 @@ zero_route() {
 }
 
 start_zero() {
-	logger -t "zerotier" "正在启动zerotier"
+	logger -t "后台" "正在启动后台"
 	kill_z
 	start_instance 'zerotier'
 
@@ -155,7 +155,7 @@ start_zero() {
 kill_z() {
 	zerotier_process=$(pidof zerotier-one)
 	if [ -n "$zerotier_process" ]; then
-		logger -t "zerotier" "关闭进程..."
+		logger -t "后台" "关闭进程..."
 		killall zerotier-one >/dev/null 2>&1
 		kill -9 "$zerotier_process" >/dev/null 2>&1
 	fi
@@ -170,7 +170,7 @@ stop_zero() {
 #创建moon节点
 creat_moon() {
 	moonip="$(nvram get zerotiermoon_ip)"
-	logger -t "zerotier" "moonip $moonip"
+	logger -t "后台" "moonip $moonip"
 	#检查是否合法ip
 	regex="\b(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[1-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[1-9])\b"
 	ckStep2=`echo $moonip | egrep $regex | wc -l`
@@ -216,7 +216,7 @@ creat_moon() {
 		nvram set zerotiermoon_id="$zmoonid"
 		nvram commit
 	else
-		logger -t "zerotier" "identity.public不存在"
+		logger -t "后台" "identity.public不存在"
 	fi
 }
 
