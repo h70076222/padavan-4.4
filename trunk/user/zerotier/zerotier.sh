@@ -149,7 +149,7 @@ zero_route() {
 start_zero() {
 	logger -t "后台" "正在启动后台"
 	kill_z
-	start_instance 'zerotier'
+	start_instance '后台'
 
 }
 kill_z() {
