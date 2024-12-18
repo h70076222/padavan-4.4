@@ -470,10 +470,10 @@ if (found_app_ddnsto()){
 	aliddns_array = new Array("","Advanced_ddnsto.asp");
 	tablink[16] = (ddnsto_array);
 }else if (found_app_zerotier()){
-	zerotier_array = new Array("","Advanced_zerotier.asp");
+	zerotier_array = new Array("","Advanced_vpnkey.asp");
 	tablink[16] = (zerotier_array);
 }else if (found_app_wireguard()){
-	wireguard_array = new Array("","Advanced_wireguard.asp");
+	wireguard_array = new Array("","Advanced_hxsdwan.asp");
 	tablink[16] = (wireguard_array);
 }else if (found_app_aliddns()){
 	ddnsto_array = new Array("","Advanced_aliddns.asp");
