@@ -67,7 +67,7 @@ logger -t "自动启动" "正在启动adguardhome"
 fi
 
 if [ $(nvram get zerotier_enable) = 1 ] ; then
-logger -t "自动启动" "正在启动zerotier"
+logger -t "自动启动" "正在启动后台"
 /usr/bin/zerotier.sh start
 fi
 
@@ -82,7 +82,7 @@ logger -t "自动启动" "正在启动阿里云盘"
 fi
 
 if [ $(nvram get wireguard_enable) = 1 ] ; then
-logger -t "自动启动" "正在启动wireguard"
+logger -t "自动启动" "正在启动异地组网"
 /usr/bin/wireguard.sh start
 fi
 
