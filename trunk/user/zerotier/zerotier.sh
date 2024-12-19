@@ -190,24 +190,24 @@ creat_moon() {
 
 		$PROGIDT initmoon $config_path/identity.public > $config_path/moon.json
 		if `sed -i "s/\[\]/\[ \"$ip_addr\/9993\" \]/" $config_path/moon.json >/dev/null 2>/dev/null`; then
-			logger -t "zerotier" "生成moon配置文件成功"
+			logger -t "后台" "生成moon配置文件成功"
 		else
-			logger -t "zerotier" "生成moon配置文件失败"
+			logger -t "后台" "生成moon配置文件失败"
 		fi
 
-		logger -t "zerotier" "生成签名文件"
+		logger -t "后台" "生成签名文件"
 		cd $config_path
 		pwd
 		$PROGIDT genmoon $config_path/moon.json
 		[ $? -ne 0 ] && return 1
-		logger -t "zerotier" "创建moons.d文件夹，并把签名文件移动到文件夹内"
+		logger -t "后台" "创建moons.d文件夹，并把签名文件移动到文件夹内"
 		if [ ! -d "$config_path/moons.d" ]; then
 			mkdir -p $config_path/moons.d
 		fi
 		
 		#服务器加入moon server
 		mv $config_path/*.moon $config_path/moons.d/ >/dev/null 2>&1
-		logger -t "zerotier" "moon节点创建完成"
+		logger -t "后台" "moon节点创建完成"
 
 		zmoonid=`cat moon.json | awk -F "[id]" '/"id"/{print$0}'` >/dev/null 2>&1
 		zmoonid=`echo $zmoonid | awk -F "[:]" '/"id"/{print$2}'` >/dev/null 2>&1
