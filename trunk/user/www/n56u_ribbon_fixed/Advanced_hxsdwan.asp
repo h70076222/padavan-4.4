@@ -148,12 +148,20 @@ function fill_status(status_code){
 
 
 										<tr>
-										<th width="30%" style="border-top: 0 none;">异地组网参数设置(点下面应用再重起生效)</th>
-							
-													
+										<th width="30%" style="border-top: 0 none;">启用组网客户端</th>
+											<td style="border-top: 0 none;">
+													<div class="main_itoggle">
+													<div id="wireguard_enable_on_of">
+														<input type="checkbox" id="wireguard_enable_fake" <% nvram_match_x("", "wireguard_enable", "1", "value=1 checked"); %><% nvram_match_x("", "wireguard_enable", "0", "value=0"); %>  />
+													</div>
 												</div>
-												
+												<div style="position: absolute; margin-left: -10000px;">
+													<input type="radio" value="1" name="wireguard_enable" id="wireguard_enable_1" class="input" value="1" <% nvram_match_x("", "wireguard_enable", "1", "checked"); %> /><#checkbox_Yes#>
+													<input type="radio" value="0" name="wireguard_enable" id="wireguard_enable_0" class="input" value="0" <% nvram_match_x("", "wireguard_enable", "0", "checked"); %> /><#checkbox_No#>
+												</div>
 											</td>
+
+										</tr>
 
 										<tr>
 										<th>本机识别码(不要改动) </th>
