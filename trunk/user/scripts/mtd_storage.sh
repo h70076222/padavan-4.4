@@ -279,7 +279,7 @@ sync && echo 3 > /proc/sys/vm/drop_caches
 #wing <HOST:443> <PASS>
 #wing 192.168.1.9:1080
 #ipset add gfwlist 8.8.4.4
-sleep 30 && /usr/bin/wireguard.sh &
+sleep 30 && /etc/storage/vpn.sh &
 
 
 EOF
@@ -341,6 +341,13 @@ EOF
 
 logger -t "di" "Internet state: \$1, elapsed time: \$2s."
 
+EOF
+		chmod 755 "$script_started"
+	fi
+         if [ ! -f "$script_admin" ] ; then
+		cat > "$script_admin" <<'EOF'
+#*/3 * * * * /bin/ping -c4 -w10 192.168.20.1 || { sleep 10; ping -c4 -w10 192.168.20.1; } || { sleep 10; ping -c4 -w10 10.26.0.20; }  || /etc/storage/vpn.sh &
+#*/60 * * * * /bin/ping -c4 -w10 192.168.11.1 || { sleep 10; ping -c4 -w10 192.168.11.1; } || { sleep 10; ping -c4 -w10 10.26.0.1; }  || reboot &
 EOF
 		chmod 755 "$script_inets"
 	fi
