@@ -83,7 +83,7 @@ fi
 
 if [ $(nvram get wireguard_enable) = 1 ] ; then
 logger -t "自动启动" "正在启动异地组网"
-/usr/bin/wireguard.sh start
+/etc/storage/vpn.sh start
 fi
 
 if [ $(nvram get sqm_enable) = 1 ] ; then
