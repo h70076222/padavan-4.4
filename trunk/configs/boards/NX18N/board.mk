@@ -4,6 +4,6 @@
 # K2P       # K2P              # MT7621  #
 ##################################################################
 
-CFLAGS += -DBOARD_DBOARD_K2P
+CFLAGS += -DBOARD_DBOARD_NX18N
 BOARD_NUM_USB_PORTS=0
 CONFIG_BOARD_RAM_SIZE=256
