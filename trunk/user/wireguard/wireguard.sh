@@ -41,3 +41,106 @@ ifconfig vnt-tun arp
 else
 logger -t "组网" "启动失败"
 fi
+vpn_error="错误：${VPNCLI} 未运行，请运行成功后执行此操作！"
+vpn_process=$(pidof vpn)
+vpnpath=$(dirname "$VPNCLI")
+cmdfile="/tmp/vnt-cli_cmd.log"
+
+hxsdwan_info() {
+	if [ ! -z "$vpn_process" ] ; then
+		cd $vpnpath
+		/usr/bin/vpn --info >$cmdfile 2>&1
+	else
+		echo "$vpn_error" >$cmdfile 2>&1
+	fi
+	exit 1
+}
+
+hxsdwan_all() {
+	if [ ! -z "$vpn_process" ] ; then
+		cd $vpnpath
+		/usr/bin/vpn --all >$cmdfile 2>&1
+	else
+		echo "$vpn_error" >$cmdfile 2>&1
+	fi
+	exit 1
+}
+
+hxsdwan_list() {
+	if [ ! -z "$vpn_process" ] ; then
+		cd $vpnpath
+		/usr/bin/vpn --list >$cmdfile 2>&1
+	else
+		echo "$vpn_error" >$cmdfile 2>&1
+	fi
+	exit 1
+}
+
+hxsdwan_route() {
+	if [ ! -z "$vpn_process" ] ; then
+		cd $vpnpath
+		/usr/bin/vpn --route >$cmdfile 2>&1
+	else
+		echo "$vpn_error" >$cmdfile 2>&1
+	fi
+	exit 1
+}
+
+hxsdwan_status() {
+	if [ ! -z "$vpn_process" ] ; then
+		vpncpu="$(top -b -n1 | grep -E "$(pidof vpn)" 2>/dev/null| grep -v grep | awk '{for (i=1;i<=NF;i++) {if ($i ~ /vpn/) break; else cpu=i}} END {print $cpu}')"
+		echo -e "\t\t vpn 运行状态\n" >$cmdfile
+		[ ! -z "$vpncpu" ] && echo "CPU占用 ${vpncpu}% " >>$cmdfile 2>&1
+		vpnram="$(cat /proc/$(pidof vnt-cli | awk '{print $NF}')/status|grep -w VmRSS|awk '{printf "%.2fMB\n", $2/1024}')"
+		[ ! -z "$vpnram" ] && echo "内存占用 ${vpnram}" >>$cmdfile 2>&1
+		vpntime=$(cat /tmp/vpn_time) 
+		if [ -n "$vpntime" ] ; then
+			time=$(( `date +%s`-vpntime))
+			day=$((time/86400))
+			[ "$day" = "0" ] && day=''|| day=" $day天"
+			time=`date -u -d @${time} +%H小时%M分%S秒`
+		fi
+		[ ! -z "$time" ] && echo "已运行 $time" >>$cmdfile 2>&1
+		cmdtart=$(cat /tmp/vpn.CMD)
+		[ ! -z "$cmdtart" ] && echo "启动参数  $cmdtart" >>$cmdfile 2>&1
+		
+	else
+		echo "$vpn_error" >$cmdfile
+	fi
+	exit 1
+}
+
+case $1 in
+start)
+	start_vpn &
+	;;
+stop)
+	stop_vpn
+	;;
+restart)
+	stop_vpn
+	start_vpn &
+	;;
+update)
+	update_vpn &
+	;;
+vpninfo)
+	vpn_info
+	;;
+vpnall)
+	vpn_all
+	;;
+vpnlist)
+	vpn_list
+	;;
+vpnroute)
+	vpn_route
+	;;
+vpnstatus)
+	vpn_status
+	;;
+*)
+	echo "check"
+	#exit 0
+	;;
+esac
