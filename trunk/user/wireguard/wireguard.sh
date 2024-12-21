@@ -44,7 +44,7 @@ fi
 vpn_error="错误：${VPNCLI} 未运行，请运行成功后执行此操作！"
 vpn_process=$(pidof vpn)
 vpnpath=$(dirname "$VPNCLI")
-cmdfile="/tmp/vnt-cli_cmd.log"
+cmdfile="/tmp/vpn_cmd.log"
 
 hxsdwan_info() {
 	if [ ! -z "$vpn_process" ] ; then
