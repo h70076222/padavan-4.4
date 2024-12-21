@@ -69,6 +69,70 @@ function fill_status(status_code){
 		stext = "<#Running#>";
 	$("vpn_status").innerHTML = '<span class="label label-' + (status_code != 0 ? 'success' : 'warning') + '">' + stext + '</span>';
 }
+function button_vntcli_info(){
+	var $j = jQuery.noConflict();
+	$j('#btn_info').attr('disabled', 'disabled');
+	$j.post('/apply.cgi', {
+		'action_mode': ' CMDvntinfo ',
+		'next_host': 'Advanced_vnt.asp#sta'
+	}).always(function() {
+		setTimeout(function() {
+			location.reload(); 
+		}, 3000);
+	});
+}
+
+function button_vntcli_all(){
+	var $j = jQuery.noConflict();
+	$j('#btn_all').attr('disabled', 'disabled');
+	$j.post('/apply.cgi', {
+		'action_mode': ' CMDvntall ',
+		'next_host': 'Advanced_vnt.asp#sta'
+	}).always(function() {
+		setTimeout(function() {
+			location.reload(); 
+		}, 3000);
+	});
+}
+
+function button_vntcli_list(){
+	var $j = jQuery.noConflict();
+	$j('#btn_list').attr('disabled', 'disabled');
+	$j.post('/apply.cgi', {
+		'action_mode': ' CMDvntlist ',
+		'next_host': 'Advanced_vnt.asp#sta'
+	}).always(function() {
+		setTimeout(function() {
+			location.reload(); 
+		}, 3000);
+	});
+}
+
+function button_vntcli_route(){
+	var $j = jQuery.noConflict();
+	$j('#btn_route').attr('disabled', 'disabled');
+	$j.post('/apply.cgi', {
+		'action_mode': ' CMDvntroute ',
+		'next_host': 'Advanced_vnt.asp#sta'
+	}).always(function() {
+		setTimeout(function() {
+			location.reload(); 
+		}, 3000);
+	});
+}
+
+function button_vntcli_status() {
+	var $j = jQuery.noConflict();
+	$j('#btn_status').attr('disabled', 'disabled');
+	$j.post('/apply.cgi', {
+		'action_mode': ' CMDvntstatus ',
+		'next_host': 'Advanced_vnt.asp#sta'
+	}).always(function() {
+		setTimeout(function() {
+			location.reload(); 
+		}, 3000);
+	});
+}
 
 </script>
 </head>
@@ -134,7 +198,7 @@ function fill_status(status_code){
 								    <a href="Advanced_hxsdwan.asp"><#menu5_35_1#></a>
 								</li>
 								<li class="active">
-								   <a href="Advanced_aliddns.asp"><menu5_23_1#></a>
+								   <li><a id="tab_vntcli_sta" href="#sta">运行状态</a></li>
 								</li>
 							    </ul>
 							</div>
@@ -208,7 +272,31 @@ function fill_status(status_code){
 											</td>
 										</tr>
 </table>
-
+	<!-- 状态 -->
+	<div id="wnd_vntcli_sta" style="display:none">
+	<table width="100%" cellpadding="4" cellspacing="0" class="table">
+	<tr>
+		<td colspan="3" style="border-top: 0 none; padding-bottom: 0px;">
+			<textarea rows="21" class="span12" style="height:377px; font-family:'Courier New', Courier, mono; font-size:13px;" readonly="readonly" wrap="off" id="textarea"><% nvram_dump("vnt-cli_cmd.log",""); %></textarea>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="5" style="border-top: 0 none; text-align: center;">
+			<!-- 按钮并排显示 -->
+			<input class="btn btn-success" id="btn_info" style="width:100px; margin-right: 10px;" type="button" name="vntcli_info" value="本机设备信息" onclick="button_vntcli_info()" />
+			<input class="btn btn-success" id="btn_all" style="width:100px; margin-right: 10px;" type="button" name="vntcli_all" value="所有设备信息" onclick="button_vntcli_all()" />
+			<input class="btn btn-success" id="btn_list" style="width:100px; margin-right: 10px;" type="button" name="vntcli_list" value="所有设备列表" onclick="button_vntcli_list()" />
+			<input class="btn btn-success" id="btn_route" style="width:100px; margin-right: 10px;" type="button" name="vntcli_route" value="路由转发信息" onclick="button_vntcli_route()" />
+			<input class="btn btn-success" id="btn_status" style="width:100px; margin-right: 10px;" type="button" name="vntcli_status" value="运行状态信息" onclick="button_vntcli_status()" />
+		</td>
+	</tr>
+	<tr>
+		<td colspan="5" style="border-top: 0 none; text-align: center; padding-top: 5px;">
+			<span style="color:#888;">🔄 点击上方按钮刷新查看</span>
+		</td>
+	</tr>
+	</table>
+	</div>
 										
 								</div>
 							</div>
