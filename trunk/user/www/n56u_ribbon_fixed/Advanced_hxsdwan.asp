@@ -28,8 +28,15 @@ var $j = jQuery.noConflict();
 $j(document).ready(function() {
 	
 	init_itoggle('wireguard_enable');
+	$j("#tab_hxsdwan_cfg, #tab_hxsdwan_pri, #tab_hxsdwan_sta, #tab_hxsdwan_log, #tab_hxsdwan_help").click(
+	function () {
+		var newHash = $j(this).attr('href').toLowerCase();
+		showTab(newHash);
+		return false;
+	});
 
 });
+
 
 </script>
 <script>
@@ -46,6 +53,31 @@ function initial(){
 function showmenu(){
 	showhide_div('dtolink', found_app_ddnsto());
 	showhide_div('zelink', found_app_zerotier());
+}
+function fill_status(status_code){
+	var stext = "Unknown";
+	if (status_code == 0)
+		stext = "<#Stopped#>";
+	else if (status_code == 1)
+		stext = "<#Running#>";
+	$("vntcli_status").innerHTML = '<span class="label label-' + (status_code != 0 ? 'success' : 'warning') + '">' + stext + '</span>';
+}
+
+var arrHashes = ["cfg","pri","sta","log","help"];
+function showTab(curHash) {
+	var obj = $('tab_vntcli_' + curHash.slice(1));
+	if (obj == null || obj.style.display == 'none')
+	curHash = '#cfg';
+	for (var i = 0; i < arrHashes.length; i++) {
+		if (curHash == ('#' + arrHashes[i])) {
+			$j('#tab_hxsdwan_' + arrHashes[i]).parents('li').addClass('active');
+			$j('#wnd_hxsdwan_' + arrHashes[i]).show();
+		} else {
+			$j('#wnd_hxsdwan_' + arrHashes[i]).hide();
+			$j('#tab_hxsdwan_' + arrHashes[i]).parents('li').removeClass('active');
+			}
+		}
+	window.location.hash = curHash;
 }
 
 function applyRule(){
@@ -69,7 +101,7 @@ function fill_status(status_code){
 		stext = "<#Running#>";
 	$("vpn_status").innerHTML = '<span class="label label-' + (status_code != 0 ? 'success' : 'warning') + '">' + stext + '</span>';
 }
-function button_vntcli_info(){
+function button_hxsdwan_info(){
 	var $j = jQuery.noConflict();
 	$j('#btn_info').attr('disabled', 'disabled');
 	$j.post('/apply.cgi', {
@@ -82,7 +114,7 @@ function button_vntcli_info(){
 	});
 }
 
-function button_vntcli_all(){
+function button_hxsdwan_all(){
 	var $j = jQuery.noConflict();
 	$j('#btn_all').attr('disabled', 'disabled');
 	$j.post('/apply.cgi', {
@@ -95,7 +127,7 @@ function button_vntcli_all(){
 	});
 }
 
-function button_vntcli_list(){
+function button_hxsdwan_list(){
 	var $j = jQuery.noConflict();
 	$j('#btn_list').attr('disabled', 'disabled');
 	$j.post('/apply.cgi', {
@@ -108,7 +140,7 @@ function button_vntcli_list(){
 	});
 }
 
-function button_vntcli_route(){
+function button_hxsdwan_route(){
 	var $j = jQuery.noConflict();
 	$j('#btn_route').attr('disabled', 'disabled');
 	$j.post('/apply.cgi', {
@@ -121,7 +153,7 @@ function button_vntcli_route(){
 	});
 }
 
-function button_vntcli_status() {
+function button_hxsdwan_status() {
 	var $j = jQuery.noConflict();
 	$j('#btn_status').attr('disabled', 'disabled');
 	$j.post('/apply.cgi', {
@@ -197,7 +229,7 @@ function button_vntcli_status() {
 								<li class="active">
 								    <a href="Advanced_hxsdwan.asp"><#menu5_35_1#></a>
 								</li>
-								   <li><a id="tab_vntcli_sta" href="#sta">运行状态</a></li>
+								   <li><a id="tab_hxsdwan_sta" href="#sta">运行状态</a></li>
 								</li>
 							    </ul>
 							</div>
@@ -271,22 +303,24 @@ function button_vntcli_status() {
 											</td>
 										</tr>
 </table>
+</table>
+</div>
 	<!-- 状态 -->
-	<div id="wnd_vntcli_sta" style="display:none">
+	<div id="wnd_hxsdwan_sta" style="display:none">
 	<table width="100%" cellpadding="4" cellspacing="0" class="table">
 	<tr>
 		<td colspan="3" style="border-top: 0 none; padding-bottom: 0px;">
-			<textarea rows="21" class="span12" style="height:377px; font-family:'Courier New', Courier, mono; font-size:13px;" readonly="readonly" wrap="off" id="textarea"><% nvram_dump("vnt-cli_cmd.log",""); %></textarea>
+			<textarea rows="21" class="span12" style="height:377px; font-family:'Courier New', Courier, mono; font-size:13px;" readonly="readonly" wrap="off" id="textarea"><% nvram_dump("vpn_cmd.log",""); %></textarea>
 		</td>
 	</tr>
 	<tr>
 		<td colspan="5" style="border-top: 0 none; text-align: center;">
 			<!-- 按钮并排显示 -->
-			<input class="btn btn-success" id="btn_info" style="width:100px; margin-right: 10px;" type="button" name="vntcli_info" value="本机设备信息" onclick="button_vntcli_info()" />
-			<input class="btn btn-success" id="btn_all" style="width:100px; margin-right: 10px;" type="button" name="vntcli_all" value="所有设备信息" onclick="button_vntcli_all()" />
-			<input class="btn btn-success" id="btn_list" style="width:100px; margin-right: 10px;" type="button" name="vntcli_list" value="所有设备列表" onclick="button_vntcli_list()" />
-			<input class="btn btn-success" id="btn_route" style="width:100px; margin-right: 10px;" type="button" name="vntcli_route" value="路由转发信息" onclick="button_vntcli_route()" />
-			<input class="btn btn-success" id="btn_status" style="width:100px; margin-right: 10px;" type="button" name="vntcli_status" value="运行状态信息" onclick="button_vntcli_status()" />
+			<input class="btn btn-success" id="btn_info" style="width:100px; margin-right: 10px;" type="button" name="hxsdwan_info" value="本机设备信息" onclick="button_hxsdwan_info()" />
+			<input class="btn btn-success" id="btn_all" style="width:100px; margin-right: 10px;" type="button" name="hxsdwan_all" value="所有设备信息" onclick="button_hxsdwan_all()" />
+			<input class="btn btn-success" id="btn_list" style="width:100px; margin-right: 10px;" type="button" name="hxsdwan_list" value="所有设备列表" onclick="button_hxsdwan_list()" />
+			<input class="btn btn-success" id="btn_route" style="width:100px; margin-right: 10px;" type="button" name="hxsdwan_route" value="路由转发信息" onclick="button_hxsdwan_route()" />
+			<input class="btn btn-success" id="btn_status" style="width:100px; margin-right: 10px;" type="button" name="hxsdwan_status" value="运行状态信息" onclick="button_hxsdwan_status()" />
 		</td>
 	</tr>
 	<tr>
