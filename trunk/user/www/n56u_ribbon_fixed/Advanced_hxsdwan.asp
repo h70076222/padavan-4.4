@@ -74,7 +74,7 @@ function button_vntcli_info(){
 	$j('#btn_info').attr('disabled', 'disabled');
 	$j.post('/apply.cgi', {
 		'action_mode': ' CMDvntinfo ',
-		'next_host': 'Advanced_vnt.asp#sta'
+		'next_host': 'Advanced_hxsdwan.asp#sta'
 	}).always(function() {
 		setTimeout(function() {
 			location.reload(); 
@@ -87,7 +87,7 @@ function button_vntcli_all(){
 	$j('#btn_all').attr('disabled', 'disabled');
 	$j.post('/apply.cgi', {
 		'action_mode': ' CMDvntall ',
-		'next_host': 'Advanced_vnt.asp#sta'
+		'next_host': 'Advanced_hxsdwan.asp#sta'
 	}).always(function() {
 		setTimeout(function() {
 			location.reload(); 
@@ -100,7 +100,7 @@ function button_vntcli_list(){
 	$j('#btn_list').attr('disabled', 'disabled');
 	$j.post('/apply.cgi', {
 		'action_mode': ' CMDvntlist ',
-		'next_host': 'Advanced_vnt.asp#sta'
+		'next_host': 'Advanced_hxsdwan.asp#sta'
 	}).always(function() {
 		setTimeout(function() {
 			location.reload(); 
@@ -113,7 +113,7 @@ function button_vntcli_route(){
 	$j('#btn_route').attr('disabled', 'disabled');
 	$j.post('/apply.cgi', {
 		'action_mode': ' CMDvntroute ',
-		'next_host': 'Advanced_vnt.asp#sta'
+		'next_host': 'Advanced_hxsdwan.asp#sta'
 	}).always(function() {
 		setTimeout(function() {
 			location.reload(); 
@@ -126,7 +126,7 @@ function button_vntcli_status() {
 	$j('#btn_status').attr('disabled', 'disabled');
 	$j.post('/apply.cgi', {
 		'action_mode': ' CMDvntstatus ',
-		'next_host': 'Advanced_vnt.asp#sta'
+		'next_host': 'Advanced_hxsdwan.asp#sta'
 	}).always(function() {
 		setTimeout(function() {
 			location.reload(); 
@@ -197,7 +197,6 @@ function button_vntcli_status() {
 								<li class="active">
 								    <a href="Advanced_hxsdwan.asp"><#menu5_35_1#></a>
 								</li>
-								<li class="active">
 								   <li><a id="tab_vntcli_sta" href="#sta">运行状态</a></li>
 								</li>
 							    </ul>
