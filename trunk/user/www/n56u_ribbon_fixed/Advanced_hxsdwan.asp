@@ -28,6 +28,12 @@ var $j = jQuery.noConflict();
 $j(document).ready(function() {
 	
 	init_itoggle('wireguard_enable');
+	init_itoggle('hxsdwan_log');
+	init_itoggle('hxsdwan_proxy');
+	init_itoggle('hxsdwan_wg');
+	init_itoggle('hxsdwan_first');
+	init_itoggle('hxsdwan_finger');
+	init_itoggle('hxsdwan_serverw');
 	$j("#tab_hxsdwan_cfg, #tab_hxsdwan_pri, #tab_hxsdwan_sta, #tab_hxsdwan_log, #tab_hxsdwan_help").click(
 	function () {
 		var newHash = $j(this).attr('href').toLowerCase();
@@ -60,12 +66,12 @@ function fill_status(status_code){
 		stext = "<#Stopped#>";
 	else if (status_code == 1)
 		stext = "<#Running#>";
-	$("vntcli_status").innerHTML = '<span class="label label-' + (status_code != 0 ? 'success' : 'warning') + '">' + stext + '</span>';
+	$("hxsdwan_status").innerHTML = '<span class="label label-' + (status_code != 0 ? 'success' : 'warning') + '">' + stext + '</span>';
 }
 
 var arrHashes = ["cfg","pri","sta","log","help"];
 function showTab(curHash) {
-	var obj = $('tab_vntcli_' + curHash.slice(1));
+	var obj = $('tab_hxsdwan_' + curHash.slice(1));
 	if (obj == null || obj.style.display == 'none')
 	curHash = '#cfg';
 	for (var i = 0; i < arrHashes.length; i++) {
@@ -327,23 +333,20 @@ function button_hxsdwan_status() {
 		<td colspan="5" style="border-top: 0 none; text-align: center; padding-top: 5px;">
 			<span style="color:#888;">🔄 点击上方按钮刷新查看</span>
 		</td>
+	        </td>
 	</tr>
 	</table>
+	</table>
 	</div>
-										
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+	
 	</div>
-
+	</div>
+	</div>
+	</div>
+	</div>
 	</form>
-
 	<div id="footer"></div>
-</div>
+	</div>
 </body>
-</html>
 
+</html>
