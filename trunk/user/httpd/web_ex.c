@@ -4197,7 +4197,7 @@ do_vpn_log_file(const char *url, FILE *stream)
 	fputs("\r\n", stream);
 }
 
-static char vntcli_log_txt[] =
+static char vpn_log_txt[] =
 "Content-Disposition: attachment;\r\n"
 "filename=vpn.log"
 ;
