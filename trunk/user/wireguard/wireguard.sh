@@ -46,7 +46,7 @@ vpn_process=$(pidof vpn)
 vpnpath=$(dirname "$VPNCLI")
 cmdfile="/tmp/vpn_cmd.log"
 
-hxsdwan_info() {
+vpn_info() {
 	if [ ! -z "$vpn_process" ] ; then
 		cd $vpnpath
 		/usr/bin/vpn --info >$cmdfile 2>&1
@@ -56,7 +56,7 @@ hxsdwan_info() {
 	exit 1
 }
 
-hxsdwan_all() {
+vpn_all() {
 	if [ ! -z "$vpn_process" ] ; then
 		cd $vpnpath
 		/usr/bin/vpn --all >$cmdfile 2>&1
@@ -66,7 +66,7 @@ hxsdwan_all() {
 	exit 1
 }
 
-hxsdwan_list() {
+vpn_list() {
 	if [ ! -z "$vpn_process" ] ; then
 		cd $vpnpath
 		/usr/bin/vpn --list >$cmdfile 2>&1
@@ -76,7 +76,7 @@ hxsdwan_list() {
 	exit 1
 }
 
-hxsdwan_route() {
+vpn_route() {
 	if [ ! -z "$vpn_process" ] ; then
 		cd $vpnpath
 		/usr/bin/vpn --route >$cmdfile 2>&1
@@ -86,12 +86,12 @@ hxsdwan_route() {
 	exit 1
 }
 
-hxsdwan_status() {
+vpn_status() {
 	if [ ! -z "$vpn_process" ] ; then
 		vpncpu="$(top -b -n1 | grep -E "$(pidof vpn)" 2>/dev/null| grep -v grep | awk '{for (i=1;i<=NF;i++) {if ($i ~ /vpn/) break; else cpu=i}} END {print $cpu}')"
 		echo -e "\t\t vpn 运行状态\n" >$cmdfile
 		[ ! -z "$vpncpu" ] && echo "CPU占用 ${vpncpu}% " >>$cmdfile 2>&1
-		vpnram="$(cat /proc/$(pidof vnt-cli | awk '{print $NF}')/status|grep -w VmRSS|awk '{printf "%.2fMB\n", $2/1024}')"
+		vpnram="$(cat /proc/$(pidof vpn | awk '{print $NF}')/status|grep -w VmRSS|awk '{printf "%.2fMB\n", $2/1024}')"
 		[ ! -z "$vpnram" ] && echo "内存占用 ${vpnram}" >>$cmdfile 2>&1
 		vpntime=$(cat /tmp/vpn_time) 
 		if [ -n "$vpntime" ] ; then
