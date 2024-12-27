@@ -3944,6 +3944,63 @@ static void do_html_post_and_get(char *url, FILE *stream, int len, char *boundar
 	//websScan(post_buf_backup);
 	init_cgi(post_buf);
 }
+#if defined(APP_WIREGUARD)
+		system("/usr/bin/wireguard.sh restart &");
+#endif
+		return 0;
+	}
+	else if (!strcmp(value, " Updatevntcli "))
+	{
+#if defined(APP_WIREGUARD)
+		system("/usr/bin/wireguard.sh update &");
+#endif
+		return 0;
+	}
+	else if (!strcmp(value, " CMDvpninfo "))
+	{
+#if defined(APP_WIREGUARD)
+		system("/usr/bin/wireguard.sh vpninfo &");
+#endif
+		return 0;
+	}
+	else if (!strcmp(value, " CMDvpnall "))
+	{
+#if defined(APP_WIREGUARD)
+		system("/usr/bin/wireguard.sh vpnall &");
+#endif
+		return 0;
+	}
+	else if (!strcmp(value, " CMDvpnlist "))
+	{
+#if defined(APP_WIREGUARD)
+		system("/usr/bin/wireguard.sh vpnlist &");
+#endif
+		return 0;
+	}
+	else if (!strcmp(value, " CMDvpnroute "))
+	{
+#if defined(APP_WIREGUARD)
+		system("/usr/bin/wireguard.sh vpnroute &");
+#endif
+		return 0;
+	}
+	else if (!strcmp(value, " CMDvpnstatus "))
+	{
+#if defined(APP_WIREGUARD)
+		system("/usr/bin/wireguard.sh vpnstatus &");
+#endif
+		return 0;
+	}
+	else if (!strcmp(value, " ClearvpncliLog "))
+	{
+#if defined(APP_WIREGUARD)
+		unlink("/tmp/vpn.log");
+#endif
+		websRedirect(wp, current_url);
+		return 0;
+	}
+	else if (!strcmp(value, " Restartcloudflared "))
+	{
 #endif
 static void
 do_html_apply_post(const char *url, FILE *stream, int clen, char *boundary)
@@ -4196,6 +4253,9 @@ struct mime_handler mime_handlers[] = {
 #endif
 #if defined(APP_OPENVPN)
 	{ "client.ovpn", "application/force-download", NULL, NULL, do_export_ovpn_client, 1 },
+#endif
+#if defined(APP_WIREGUARD)
+	{ "vpn.log", "application/force-download", vpn_log_txt, NULL, do_vpn_log_file, 1 },
 #endif
 #if defined(APP_SHADOWSOCKS)
 	{ "applydb.cgi*", "text/html", no_cache_IE7, do_html_post_and_get, do_applydb_cgi, 1 },
