@@ -4189,6 +4189,21 @@ static char scutclient_log_txt[] =
 
 #endif
 
+#if defined (APP_WIREGUARD)
+static void
+do_vpn_log_file(const char *url, FILE *stream)
+{
+	dump_file(stream, "/tmp/vpn.log");
+	fputs("\r\n", stream);
+}
+
+static char vntcli_log_txt[] =
+"Content-Disposition: attachment;\r\n"
+"filename=vpn.log"
+;
+
+#endif
+
 #if defined (APP_MENTOHUST)
 static void
 do_mentohust_log_file(const char *url, FILE *stream)
