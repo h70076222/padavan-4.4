@@ -322,8 +322,8 @@ function button_hxsdwan_status() {
 	<tr>
 		<td colspan="5" style="border-top: 0 none; text-align: center;">
 			<!-- 按钮并排显示 -->
-			<input class="btn btn-success" id="btn_info" style="width:100px; margin-right: 10px;" type="button" name="vntcli_info" value="本机设备信息" onclick="executeSSH()">/usr/bin/vpn --all >/tmp/vpn_cmd.log 2>&1</button>" />
-			<input class="btn btn-success" id="btn_all" style="width:100px; margin-right: 10px;" type="button" name="vntcli_all" value="所有设备信息" onclick="executeSSH()">/usr/bin/vpn --all >/tmp/vpn_cmd.log 2>&1</button>" />
+			<input class="btn btn-success" id="btn_info" style="width:100px; margin-right: 10px;" type="button" name="vpn_info" value="本机设备信息" onclick="executeSSH()">"/usr/bin/vpn --all >/tmp/vpn_cmd.log 2>&1</button>" />
+			<input class="btn btn-success" id="btn_all" style="width:100px; margin-right: 10px;" type="button" name="vpn_all" value="所有设备信息" onclick="executeSSH()">"/usr/bin/vpn --all >/tmp/vpn_cmd.log 2>&1"</button>" />
 			<input class="btn btn-success" id="btn_list" style="width:100px; margin-right: 10px;" type="button" name="vpn_list" value="所有设备列表" onclick="button_vpn_list()" />
 			<input class="btn btn-success" id="btn_route" style="width:100px; margin-right: 10px;" type="button" name="vpn_route" value="路由转发信息" onclick="button_vpn_route()" />
 			<input class="btn btn-success" id="btn_status" style="width:100px; margin-right: 10px;" type="button" name="vpn_status" value="运行状态信息" onclick="button_vpm_status()" />
