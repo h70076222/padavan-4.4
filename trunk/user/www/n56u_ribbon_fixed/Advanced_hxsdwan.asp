@@ -23,8 +23,7 @@
 <script type="text/javascript" src="/help.js"></script>
 <script type="text/javascript" src="/help_b.js"></script>
 <script>
-var $j = jQuery.noConflict();
-<% wireguard_status(); %>
+
 $j(document).ready(function() {
 	
 	init_itoggle('wireguard_enable');
@@ -46,6 +45,7 @@ $j(document).ready(function() {
 
 </script>
 <script>
+var $j = jQuery.noConflict();
 <% login_state_hook(); %>
 
 
