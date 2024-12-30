@@ -107,13 +107,25 @@ function fill_status(status_code){
 		stext = "<#Running#>";
 	$("vpn_status").innerHTML = '<span class="label label-' + (status_code != 0 ? 'success' : 'warning') + '">' + stext + '</span>';
 }
+function clearLog(){
+	var $j = jQuery.noConflict();
+	$j.post('/apply.cgi', {
+		'action_mode': ' ClearvpnLog ',
+		'next_host': 'Advanced_hxsdwan.asp#log'
+	}).always(function() {
+		setTimeout(function() {
+			location.reload(); 
+		}, 3000);
+	});
+}
+
 function button_hxsdwan_info(){
 	var $j = jQuery.noConflict();
 	$j('#btn_info').attr('disabled', 'disabled');
-	$j.post('/apply.cgi',  { 
-    'action_mode': ' CMDvpninfo ', 
-    'next_host': 'Advanced_hxsdwan.asp#sta'  
-}).always(function() {
+	$j.post('/apply.cgi', {
+		'action_mode': ' CMDvpninfo ',
+		'next_host': 'Advanced_hxsdwan.asp#sta'
+	}).always(function() {
 		setTimeout(function() {
 			location.reload(); 
 		}, 3000);
@@ -123,10 +135,10 @@ function button_hxsdwan_info(){
 function button_hxsdwan_all(){
 	var $j = jQuery.noConflict();
 	$j('#btn_all').attr('disabled', 'disabled');
-	$j.post('/apply.cgi',  { 
-    'action_mode': ' CMDvpnall ', 
-    'next_host': 'Advanced_hxsdwan.asp#sta'  
-}).always(function() {
+	$j.post('/apply.cgi', {
+		'action_mode': ' CMDvntall ',
+		'next_host': 'Advanced_hxsdwan.asp#sta'
+	}).always(function() {
 		setTimeout(function() {
 			location.reload(); 
 		}, 3000);
@@ -136,10 +148,10 @@ function button_hxsdwan_all(){
 function button_hxsdwan_list(){
 	var $j = jQuery.noConflict();
 	$j('#btn_list').attr('disabled', 'disabled');
-	$j.post('/apply.cgi',  { 
-    'action_mode': ' CMDvpnlist ', 
-    'next_host': 'Advanced_hxsdwan.asp#sta'  
-}).always(function() {
+	$j.post('/apply.cgi', {
+		'action_mode': ' CMDvpnlist ',
+		'next_host': 'Advanced_hxsdwan.asp#sta'
+	}).always(function() {
 		setTimeout(function() {
 			location.reload(); 
 		}, 3000);
@@ -149,23 +161,24 @@ function button_hxsdwan_list(){
 function button_hxsdwan_route(){
 	var $j = jQuery.noConflict();
 	$j('#btn_route').attr('disabled', 'disabled');
-	$.post('/apply.cgi',  { 
-    'action_mode': ' CMDvpnroute ', 
-    'next_host': 'Advanced_hxsdwan.asp#sta'  
-}).always(function() {
+	$j.post('/apply.cgi', {
+		'action_mode': ' CMDvpnroute ',
+		'next_host': 'Advanced_hxsdwan.asp#sta'
+	}).always(function() {
 		setTimeout(function() {
 			location.reload(); 
 		}, 3000);
 	});
 }
 
+
 function button_hxsdwan_status() {
 	var $j = jQuery.noConflict();
 	$j('#btn_status').attr('disabled', 'disabled');
-	$.post('/apply.cgi',  { 
-    'action_mode': ' CMDvpnstatus ', 
-    'next_host': 'Advanced_hxsdwan.asp#sta'  
-}).always(function() {
+	$j.post('/apply.cgi', {
+		'action_mode': ' CMDvpnstatus ',
+		'next_host': 'Advanced_hxsdwan.asp#sta'
+	}).always(function() {
 		setTimeout(function() {
 			location.reload(); 
 		}, 3000);
