@@ -23,31 +23,17 @@
 <script type="text/javascript" src="/help.js"></script>
 <script type="text/javascript" src="/help_b.js"></script>
 <script>
+var $j = jQuery.noConflict();
 
 $j(document).ready(function() {
 	
 	init_itoggle('wireguard_enable');
-	init_itoggle('hxsdwan_log');
-	init_itoggle('hxsdwan_proxy');
-	init_itoggle('hxsdwan_wg');
-	init_itoggle('hxsdwan_first');
-	init_itoggle('hxsdwan_finger');
-	init_itoggle('hxsdwan_serverw');
-	$j("#tab_hxsdwan_cfg, #tab_hxsdwan_pri, #tab_hxsdwan_sta, #tab_hxsdwan_log, #tab_hxsdwan_help").click(
-	function () {
-		var newHash = $j(this).attr('href').toLowerCase();
-		showTab(newHash);
-		return false;
-	});
 
 });
 
-
 </script>
 <script>
-var $j = jQuery.noConflict();
 <% login_state_hook(); %>
-
 
 function initial(){
 	show_banner(2);
@@ -107,6 +93,7 @@ function fill_status(status_code){
 		stext = "<#Running#>";
 	$("vpn_status").innerHTML = '<span class="label label-' + (status_code != 0 ? 'success' : 'warning') + '">' + stext + '</span>';
 }
+
 function clearLog(){
 	var $j = jQuery.noConflict();
 	$j.post('/apply.cgi', {
@@ -171,7 +158,6 @@ function button_hxsdwan_route(){
 	});
 }
 
-
 function button_hxsdwan_status() {
 	var $j = jQuery.noConflict();
 	$j('#btn_status').attr('disabled', 'disabled');
@@ -184,7 +170,6 @@ function button_hxsdwan_status() {
 		}, 3000);
 	});
 }
-
 </script>
 </head>
 
