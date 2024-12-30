@@ -24,8 +24,7 @@
 <script type="text/javascript" src="/help_b.js"></script>
 <script>
 var $j = jQuery.noConflict();
-<% hxsdwan_status(); %>
-<% login_state_hook(); %>
+<% wireguard_status(); %>
 $j(document).ready(function() {
 	
 	init_itoggle('wireguard_enable');
