@@ -24,7 +24,8 @@
 <script type="text/javascript" src="/help_b.js"></script>
 <script>
 var $j = jQuery.noConflict();
-
+<% hxsdwan_status(); %>
+<% login_state_hook(); %>
 $j(document).ready(function() {
 	
 	init_itoggle('wireguard_enable');
@@ -110,10 +111,10 @@ function fill_status(status_code){
 function button_hxsdwan_info(){
 	var $j = jQuery.noConflict();
 	$j('#btn_info').attr('disabled', 'disabled');
-	$j.post('/apply.cgi', {
-		'action_mode': ' CMDvpninfo ',
-		'next_host': 'Advanced_hxsdwan.asp#sta'
-	}).always(function() {
+	$j.post('/apply.cgi',  { 
+    'action_mode': ' CMDvpninfo ', 
+    'next_host': 'Advanced_hxsdwan.asp#sta'  
+}).always(function() {
 		setTimeout(function() {
 			location.reload(); 
 		}, 3000);
@@ -123,10 +124,10 @@ function button_hxsdwan_info(){
 function button_hxsdwan_all(){
 	var $j = jQuery.noConflict();
 	$j('#btn_all').attr('disabled', 'disabled');
-	$j.post('/apply.cgi', {
-		'action_mode': ' CMDvpnall ',
-		'next_host': 'Advanced_hxsdwan.asp#sta'
-	}).always(function() {
+	$j.post('/apply.cgi',  { 
+    'action_mode': ' CMDvpnall ', 
+    'next_host': 'Advanced_hxsdwan.asp#sta'  
+}).always(function() {
 		setTimeout(function() {
 			location.reload(); 
 		}, 3000);
@@ -136,10 +137,10 @@ function button_hxsdwan_all(){
 function button_hxsdwan_list(){
 	var $j = jQuery.noConflict();
 	$j('#btn_list').attr('disabled', 'disabled');
-	$j.post('/apply.cgi', {
-		'action_mode': ' CMDvpnlist ',
-		'next_host': 'Advanced_hxsdwan.asp#sta'
-	}).always(function() {
+	$j.post('/apply.cgi',  { 
+    'action_mode': ' CMDvpnlist ', 
+    'next_host': 'Advanced_hxsdwan.asp#sta'  
+}).always(function() {
 		setTimeout(function() {
 			location.reload(); 
 		}, 3000);
@@ -149,10 +150,10 @@ function button_hxsdwan_list(){
 function button_hxsdwan_route(){
 	var $j = jQuery.noConflict();
 	$j('#btn_route').attr('disabled', 'disabled');
-	$j.post('/apply.cgi', {
-		'action_mode': ' CMDvpnroute ',
-		'next_host': 'Advanced_hxsdwan.asp#sta'
-	}).always(function() {
+	$.post('/apply.cgi',  { 
+    'action_mode': ' CMDvpnroute ', 
+    'next_host': 'Advanced_hxsdwan.asp#sta'  
+}).always(function() {
 		setTimeout(function() {
 			location.reload(); 
 		}, 3000);
@@ -162,10 +163,10 @@ function button_hxsdwan_route(){
 function button_hxsdwan_status() {
 	var $j = jQuery.noConflict();
 	$j('#btn_status').attr('disabled', 'disabled');
-	$j.post('/apply.cgi', {
-		'action_mode': ' CMDvpnstatus ',
-		'next_host': 'Advanced_hxsdwan.asp#sta'
-	}).always(function() {
+	$.post('/apply.cgi',  { 
+    'action_mode': ' CMDvpnstatus ', 
+    'next_host': 'Advanced_hxsdwan.asp#sta'  
+}).always(function() {
 		setTimeout(function() {
 			location.reload(); 
 		}, 3000);
