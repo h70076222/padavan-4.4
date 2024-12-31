@@ -42,7 +42,7 @@ else
 logger -t "组网" "启动失败"
 fi
 start_vpn() {
-	[ "$vntcli_enable" = "0" ] && exit 1
+	[ "$vpn_enable" = "0" ] && exit 1
 	logger -t "【vpn客户端】" "正在启动vpn"
   	if [ -z "$VPN" ] ; then
   		etc_size=`check_disk_size /etc/storage`
