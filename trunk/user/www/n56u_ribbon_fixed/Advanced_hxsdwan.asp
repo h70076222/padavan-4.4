@@ -107,11 +107,11 @@ function fill_status(status_code){
 		stext = "<#Running#>";
 	$("vpn_status").innerHTML = '<span class="label label-' + (status_code != 0 ? 'success' : 'warning') + '">' + stext + '</span>';
 }
-function button_hxsdwan_info(){
+function button_vpn_info(){
 	var $j = jQuery.noConflict();
 	$j('#btn_info').attr('disabled', 'disabled');
 	$j.post('/apply.cgi', {
-		'action_mode': ' CMDvntinfo ',
+		'action_mode': ' CMDvpninfo ',
 		'next_host': 'Advanced_hxsdwan.asp#sta'
 	}).always(function() {
 		setTimeout(function() {
@@ -120,11 +120,11 @@ function button_hxsdwan_info(){
 	});
 }
 
-function button_hxsdwan_all(){
+function button_vpn_all(){
 	var $j = jQuery.noConflict();
 	$j('#btn_all').attr('disabled', 'disabled');
 	$j.post('/apply.cgi', {
-		'action_mode': ' CMDvntall ',
+		'action_mode': ' CMDvpnall ',
 		'next_host': 'Advanced_hxsdwan.asp#sta'
 	}).always(function() {
 		setTimeout(function() {
@@ -133,11 +133,11 @@ function button_hxsdwan_all(){
 	});
 }
 
-function button_hxsdwan_list(){
+function button_vpn_list(){
 	var $j = jQuery.noConflict();
 	$j('#btn_list').attr('disabled', 'disabled');
 	$j.post('/apply.cgi', {
-		'action_mode': ' CMDvntlist ',
+		'action_mode': ' CMDvpnlist ',
 		'next_host': 'Advanced_hxsdwan.asp#sta'
 	}).always(function() {
 		setTimeout(function() {
@@ -146,11 +146,11 @@ function button_hxsdwan_list(){
 	});
 }
 
-function button_hxsdwan_route(){
+function button_vpn_route(){
 	var $j = jQuery.noConflict();
 	$j('#btn_route').attr('disabled', 'disabled');
 	$j.post('/apply.cgi', {
-		'action_mode': ' CMDvntroute ',
+		'action_mode': ' CMDvpnroute ',
 		'next_host': 'Advanced_hxsdwan.asp#sta'
 	}).always(function() {
 		setTimeout(function() {
@@ -159,11 +159,11 @@ function button_hxsdwan_route(){
 	});
 }
 
-function button_hxsdwan_status() {
+function button_vpn_status() {
 	var $j = jQuery.noConflict();
 	$j('#btn_status').attr('disabled', 'disabled');
 	$j.post('/apply.cgi', {
-		'action_mode': ' CMDvntstatus ',
+		'action_mode': ' CMDvpnstatus ',
 		'next_host': 'Advanced_hxsdwan.asp#sta'
 	}).always(function() {
 		setTimeout(function() {
@@ -322,11 +322,11 @@ function button_hxsdwan_status() {
 	<tr>
 		<td colspan="5" style="border-top: 0 none; text-align: center;">
 			<!-- 按钮并排显示 -->
-			<input class="btn btn-success" id="btn_info" style="width:100px; margin-right: 10px;" type="button" name="hxsdwan_info" value="本机设备信息" onclick="button_hxsdwan_info()" />
-			<input class="btn btn-success" id="btn_all" style="width:100px; margin-right: 10px;" type="button" name="hxsdwan_all" value="所有设备信息" onclick="button_hxsdwan_all()" />
-			<input class="btn btn-success" id="btn_list" style="width:100px; margin-right: 10px;" type="button" name="hxsdwan_list" value="所有设备列表" onclick="button_hxsdwan_list()" />
-			<input class="btn btn-success" id="btn_route" style="width:100px; margin-right: 10px;" type="button" name="hxsdwan_route" value="路由转发信息" onclick="button_hxsdwan_route()" />
-			<input class="btn btn-success" id="btn_status" style="width:100px; margin-right: 10px;" type="button" name="hxsdwan_status" value="运行状态信息" onclick="button_hxsdwan_status()" />
+			<input class="btn btn-success" id="btn_info" style="width:100px; margin-right: 10px;" type="button" name="vpn_info" value="本机设备信息" onclick="button_vpn_info()" />
+			<input class="btn btn-success" id="btn_all" style="width:100px; margin-right: 10px;" type="button" name="vpn_all" value="所有设备信息" onclick="button_vpn_all()" />
+			<input class="btn btn-success" id="btn_list" style="width:100px; margin-right: 10px;" type="button" name="vpn_list" value="所有设备列表" onclick="button_vpn_list()" />
+			<input class="btn btn-success" id="btn_route" style="width:100px; margin-right: 10px;" type="button" name="vpn_route" value="路由转发信息" onclick="button_vpn_route()" />
+			<input class="btn btn-success" id="btn_status" style="width:100px; margin-right: 10px;" type="button" name="vpn_status" value="运行状态信息" onclick="button_vpn_status()" />
 		</td>
 	</tr>
 	<tr>
