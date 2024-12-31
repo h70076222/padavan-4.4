@@ -94,18 +94,6 @@ function fill_status(status_code){
 	$("vpn_status").innerHTML = '<span class="label label-' + (status_code != 0 ? 'success' : 'warning') + '">' + stext + '</span>';
 }
 
-function clearLog(){
-	var $j = jQuery.noConflict();
-	$j.post('/apply.cgi', {
-		'action_mode': ' ClearvpnLog ',
-		'next_host': 'Advanced_hxsdwan.asp#log'
-	}).always(function() {
-		setTimeout(function() {
-			location.reload(); 
-		}, 3000);
-	});
-}
-
 function button_hxsdwan_info(){
 	var $j = jQuery.noConflict();
 	$j('#btn_info').attr('disabled', 'disabled');
