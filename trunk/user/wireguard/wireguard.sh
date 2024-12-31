@@ -41,9 +41,21 @@ ifconfig vnt-tun arp
 else
 logger -t "组网" "启动失败"
 fi
-vpn_error="错误：${VPNCLI} 未运行，请运行成功后执行此操作！"
+start_vpn() {
+	[ "$vntcli_enable" = "0" ] && exit 1
+	logger -t "【vpn客户端】" "正在启动vpn"
+  	if [ -z "$VPN" ] ; then
+  		etc_size=`check_disk_size /etc/storage`
+      		if [ "$etc_size" -gt 1 ] ; then
+			VPN=/etc/storage/vpn
+   		else
+     			VPN=/usr/bin/vpn
+		fi
+  		nvram set vpn_bin=$VPN
+    fi
+vpn_error="错误：${VPN} 未运行，请运行成功后执行此操作！"
 vpn_process=$(pidof vpn)
-vpnpath=$(dirname "$VPNCLI")
+vpnpath=$(dirname "$VPN")
 cmdfile="/tmp/vpn_cmd.log"
 
 vpn_info() {
