@@ -28,18 +28,26 @@ var $j = jQuery.noConflict();
 $j(document).ready(function() {
 	
 	init_itoggle('wireguard_enable');
-	init_itoggle('wireguard_log');
-	init_itoggle('wireguard_proxy');
-	init_itoggle('wireguard_wg');
-	init_itoggle('wireguard_first');
-	init_itoggle('wireguard_finger');
-	init_itoggle('wireguard_serverw');
+	init_itoggle('hxsdwan_log');
+	init_itoggle('hxsdwan_proxy');
+	init_itoggle('hxsdwan_wg');
+	init_itoggle('hxsdwan_first');
+	init_itoggle('hxsdwan_finger');
+	init_itoggle('hxsdwan_serverw');
+	$j("#tab_hxsdwan_cfg, #tab_hxsdwan_pri, #tab_hxsdwan_sta, #tab_hxsdwan_log, #tab_hxsdwan_help").click(
+	function () {
+		var newHash = $j(this).attr('href').toLowerCase();
+		showTab(newHash);
+		return false;
+	});
 
 });
+
 
 </script>
 <script>
 <% login_state_hook(); %>
+
 
 function initial(){
 	show_banner(2);
@@ -99,12 +107,11 @@ function fill_status(status_code){
 		stext = "<#Running#>";
 	$("vpn_status").innerHTML = '<span class="label label-' + (status_code != 0 ? 'success' : 'warning') + '">' + stext + '</span>';
 }
-
 function button_hxsdwan_info(){
 	var $j = jQuery.noConflict();
 	$j('#btn_info').attr('disabled', 'disabled');
 	$j.post('/apply.cgi', {
-		'action_mode': ' CMDvpninfo ',
+		'action_mode': ' CMDvntinfo ',
 		'next_host': 'Advanced_hxsdwan.asp#sta'
 	}).always(function() {
 		setTimeout(function() {
@@ -130,7 +137,7 @@ function button_hxsdwan_list(){
 	var $j = jQuery.noConflict();
 	$j('#btn_list').attr('disabled', 'disabled');
 	$j.post('/apply.cgi', {
-		'action_mode': ' CMDvpnlist ',
+		'action_mode': ' CMDvntlist ',
 		'next_host': 'Advanced_hxsdwan.asp#sta'
 	}).always(function() {
 		setTimeout(function() {
@@ -143,7 +150,7 @@ function button_hxsdwan_route(){
 	var $j = jQuery.noConflict();
 	$j('#btn_route').attr('disabled', 'disabled');
 	$j.post('/apply.cgi', {
-		'action_mode': ' CMDvpnroute ',
+		'action_mode': ' CMDvntroute ',
 		'next_host': 'Advanced_hxsdwan.asp#sta'
 	}).always(function() {
 		setTimeout(function() {
@@ -156,7 +163,7 @@ function button_hxsdwan_status() {
 	var $j = jQuery.noConflict();
 	$j('#btn_status').attr('disabled', 'disabled');
 	$j.post('/apply.cgi', {
-		'action_mode': ' CMDvpnstatus ',
+		'action_mode': ' CMDvntstatus ',
 		'next_host': 'Advanced_hxsdwan.asp#sta'
 	}).always(function() {
 		setTimeout(function() {
@@ -164,6 +171,7 @@ function button_hxsdwan_status() {
 		}, 3000);
 	});
 }
+
 </script>
 </head>
 
@@ -314,11 +322,11 @@ function button_hxsdwan_status() {
 	<tr>
 		<td colspan="5" style="border-top: 0 none; text-align: center;">
 			<!-- 按钮并排显示 -->
-			<input class="btn btn-success" id="btn_info" style="width:100px; margin-right: 10px;" type="button" name="vpn_info" value="本机设备信息" onclick="button_hxsdwan_info()" />
-			<input class="btn btn-success" id="btn_all" style="width:100px; margin-right: 10px;" type="button" name="vpn_all" value="所有设备信息" onclick="button_hxsdwan_all()" />
-			<input class="btn btn-success" id="btn_list" style="width:100px; margin-right: 10px;" type="button" name="vpn_list" value="所有设备列表" onclick="button_hxsdwan_list()" />
-			<input class="btn btn-success" id="btn_route" style="width:100px; margin-right: 10px;" type="button" name="vpn_route" value="路由转发信息" onclick="button_hxsdwan_route()" />
-			<input class="btn btn-success" id="btn_status" style="width:100px; margin-right: 10px;" type="button" name="vpn_status" value="运行状态信息" onclick="button_hxsdwan_status()" />
+			<input class="btn btn-success" id="btn_info" style="width:100px; margin-right: 10px;" type="button" name="hxsdwan_info" value="本机设备信息" onclick="button_hxsdwan_info()" />
+			<input class="btn btn-success" id="btn_all" style="width:100px; margin-right: 10px;" type="button" name="hxsdwan_all" value="所有设备信息" onclick="button_hxsdwan_all()" />
+			<input class="btn btn-success" id="btn_list" style="width:100px; margin-right: 10px;" type="button" name="hxsdwan_list" value="所有设备列表" onclick="button_hxsdwan_list()" />
+			<input class="btn btn-success" id="btn_route" style="width:100px; margin-right: 10px;" type="button" name="hxsdwan_route" value="路由转发信息" onclick="button_hxsdwan_route()" />
+			<input class="btn btn-success" id="btn_status" style="width:100px; margin-right: 10px;" type="button" name="hxsdwan_status" value="运行状态信息" onclick="button_hxsdwan_status()" />
 		</td>
 	</tr>
 	<tr>
