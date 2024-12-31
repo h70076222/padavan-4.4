@@ -28,6 +28,12 @@ var $j = jQuery.noConflict();
 $j(document).ready(function() {
 	
 	init_itoggle('wireguard_enable');
+	init_itoggle('wireguard_log');
+	init_itoggle('wireguard_proxy');
+	init_itoggle('wireguard_wg');
+	init_itoggle('wireguard_first');
+	init_itoggle('wireguard_finger');
+	init_itoggle('wireguard_serverw');
 
 });
 
