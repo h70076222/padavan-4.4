@@ -27,7 +27,7 @@ var $j = jQuery.noConflict();
 
 $j(document).ready(function() {
 	
-	init_itoggle('wireguard_enable');
+	init_itoggle('vpn_enable');
 	init_itoggle('hxsdwan_log');
 	init_itoggle('hxsdwan_proxy');
 	init_itoggle('hxsdwan_wg');
