@@ -3,15 +3,15 @@
 
 /usr/bin/vpn --stop
 #关闭vnt的防火墙
-iptables -D INPUT -i vnt-tun -j ACCEPT 2>/dev/null
-iptables -D FORWARD -i vnt-tun -o vnt-tun -j ACCEPT 2>/dev/null
-iptables -D FORWARD -i vnt-tun -j ACCEPT 2>/dev/null
-iptables -t nat -D POSTROUTING -o vnt-tun -j MASQUERADE 2>/dev/null
+iptables -D INPUT -i hxsdwan -j ACCEPT 2>/dev/null
+iptables -D FORWARD -i hxsdwan -o hxsdwan -j ACCEPT 2>/dev/null
+iptables -D FORWARD -i hxsdwan -j ACCEPT 2>/dev/null
+iptables -t nat -D POSTROUTING -o hxsdwan -j MASQUERADE 2>/dev/null
 killall vpn
 killall -9 vpn
-sleep 3
+sleep 4
 #清除vnt的虚拟网卡
-ifconfig vnt-tun down && ip tuntap del vnt-tun mode tun
+ifconfig hxsdwan down && ip tuntap del hxsdwan mode tun
 #启动命令 更多命令去官方查看
 wireguard_key=$(nvram get wireguard_key) 
 echo $wireguard_key
@@ -26,33 +26,22 @@ echo $wireguard_ttre
 lan_ipaddr=$(nvram get lan_ipaddr) 
 echo $lan_ipaddr
 
-/usr/bin/vpn -k $wireguard_key $wireguard_ttre -d $wireguard_naen -i $wireguard_inip -o $lan_ipaddr/24 --ip $wireguard_outip &
+/usr/bin/vpn -k $wireguard_key $wireguard_ttre -d $wireguard_naen --nic hxsdwan -i $wireguard_inip -o $lan_ipaddr/24 --ip $wireguard_outip &
 
-sleep 3
+sleep 4
 if [ ! -z "`pidof vpn`" ] ; then
-logger -t "组网" "启动成功"
+logger -t "异地组网" "启动成功"
 #放行vpn防火墙
-iptables -I INPUT -i vnt-tun -j ACCEPT
-iptables -I FORWARD -i vnt-tun -o vnt-tun -j ACCEPT
-iptables -I FORWARD -i vnt-tun -j ACCEPT
-iptables -t nat -I POSTROUTING -o vnt-tun -j MASQUERADE
+iptables -I INPUT -i hxsdwan -j ACCEPT
+iptables -I FORWARD -i hxsdwan -o hxsdwan -j ACCEPT
+iptables -I FORWARD -i hxsdwan -j ACCEPT
+iptables -t nat -I POSTROUTING -o hxsdwan -j MASQUERADE
 #开启arp
-ifconfig vnt-tun arp
+ifconfig hxsdwan arp
 else
-logger -t "组网" "启动失败"
+logger -t "异地组网" "启动失败"
 fi
-start_vpn() {
-	[ "$vpn_enable" = "0" ] && exit 1
-	logger -t "【vpn客户端】" "正在启动vpn"
-  	if [ -z "$VPN" ] ; then
-  		etc_size=`check_disk_size /etc/storage`
-      		if [ "$etc_size" -gt 1 ] ; then
-			VPN=/etc/storage/vpn
-   		else
-     			VPN=/usr/bin/vpn
-		fi
-  		nvram set vpn_bin=$VPN
-    fi
+
 vpn_error="错误：${VPN} 未运行，请运行成功后执行此操作！"
 vpn_process=$(pidof vpn)
 vpnpath=$(dirname "$VPN")
