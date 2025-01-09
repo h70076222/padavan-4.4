@@ -24,17 +24,18 @@
 <script type="text/javascript" src="/help_b.js"></script>
 <script>
 var $j = jQuery.noConflict();
-
+<% wireguard_status(); %>
+<% login_state_hook(); %>
 $j(document).ready(function() {
 	
 	init_itoggle('wireguard_enable');
-	init_itoggle('hxsdwan_log');
-	init_itoggle('hxsdwan_proxy');
-	init_itoggle('hxsdwan_wg');
-	init_itoggle('hxsdwan_first');
-	init_itoggle('hxsdwan_finger');
-	init_itoggle('hxsdwan_serverw');
-	$j("#tab_hxsdwan_cfg, #tab_hxsdwan_pri, #tab_hxsdwan_sta, #tab_hxsdwan_log, #tab_hxsdwan_help").click(
+	init_itoggle('vpn_log');
+	init_itoggle('vpn_proxy');
+	init_itoggle('vpn_wg');
+	init_itoggle('vpn_first');
+	init_itoggle('vpn_finger');
+	init_itoggle('vpn_serverw');
+	$j("#tab_vpn_cfg, #tab_vpn_pri, #tab_vpn_sta, #tab_vpn_log, #tab_vpn_help").click(
 	function () {
 		var newHash = $j(this).attr('href').toLowerCase();
 		showTab(newHash);
@@ -47,7 +48,23 @@ $j(document).ready(function() {
 
 </script>
 <script>
-<% login_state_hook(); %>
+var m_routelist = [<% get_nvram_list("wireguard", "wireguardroute"); %>];
+var mroutelist_ifield = 4;
+if(m_routelist.length > 0){
+	var m_routelist_ifield = m_routelist[0].length;
+	for (var i = 0; i < m_routelist.length; i++) {
+		m_routelist[i][mroutelist_ifield] = i;
+	}
+}
+
+var m_mapplist = [<% get_nvram_list("wireguard", "wireguardImapp"); %>];
+var mmapplist_ifield = 5;
+if(m_mapplist.length > 0){
+	var m_mapplist_ifield = m_mapplist[0].length;
+	for (var i = 0; i < m_mapplist.length; i++) {
+		m_mapplist[i][mmapplist_ifield] = i;
+	}
+}
 
 
 function initial(){
@@ -55,6 +72,11 @@ function initial(){
 	show_menu(5,17,0);
 	showmenu();
 	show_footer();
+	fill_status(wireguard_status());
+	change_wireguard_enable(1);
+	change_wireguard_model(1);
+	if (!login_safe())
+        		textarea_scripts_enabled(0);
 }
 
 function showmenu(){
