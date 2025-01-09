@@ -29,13 +29,13 @@ var $j = jQuery.noConflict();
 $j(document).ready(function() {
 	
 	init_itoggle('wireguard_enable');
-	init_itoggle('vpn_log');
-	init_itoggle('vpn_proxy');
-	init_itoggle('vpn_wg');
-	init_itoggle('vpn_first');
-	init_itoggle('vpn_finger');
-	init_itoggle('vpn_serverw');
-	$j("#tab_vpn_cfg, #tab_vpn_pri, #tab_vpn_sta, #tab_vpn_log, #tab_vpn_help").click(
+	init_itoggle('wireguard_log');
+	init_itoggle('wireguard_proxy');
+	init_itoggle('wireguard_wg');
+	init_itoggle('wireguard_first');
+	init_itoggle('wireguard_finger');
+	init_itoggle('wireguard_serverw');
+	$j("#tab_wireguard_cfg, #tab_wireguard_pri, #tab_wireguard_sta, #tab_wireguard_log, #tab_wireguard_help").click(
 	function () {
 		var newHash = $j(this).attr('href').toLowerCase();
 		showTab(newHash);
@@ -89,21 +89,21 @@ function fill_status(status_code){
 		stext = "<#Stopped#>";
 	else if (status_code == 1)
 		stext = "<#Running#>";
-	$("hxsdwan_status").innerHTML = '<span class="label label-' + (status_code != 0 ? 'success' : 'warning') + '">' + stext + '</span>';
+	$("wireguard_status").innerHTML = '<span class="label label-' + (status_code != 0 ? 'success' : 'warning') + '">' + stext + '</span>';
 }
 
 var arrHashes = ["cfg","pri","sta","log","help"];
 function showTab(curHash) {
-	var obj = $('tab_hxsdwan_' + curHash.slice(1));
+	var obj = $('tab_wireguard_' + curHash.slice(1));
 	if (obj == null || obj.style.display == 'none')
 	curHash = '#cfg';
 	for (var i = 0; i < arrHashes.length; i++) {
 		if (curHash == ('#' + arrHashes[i])) {
-			$j('#tab_hxsdwan_' + arrHashes[i]).parents('li').addClass('active');
-			$j('#wnd_hxsdwan_' + arrHashes[i]).show();
+			$j('#tab_wireguard_' + arrHashes[i]).parents('li').addClass('active');
+			$j('#wnd_wireguard_' + arrHashes[i]).show();
 		} else {
-			$j('#wnd_hxsdwan_' + arrHashes[i]).hide();
-			$j('#tab_hxsdwan_' + arrHashes[i]).parents('li').removeClass('active');
+			$j('#wnd_wireguard_' + arrHashes[i]).hide();
+			$j('#tab_wireguard_' + arrHashes[i]).parents('li').removeClass('active');
 			}
 		}
 	window.location.hash = curHash;
