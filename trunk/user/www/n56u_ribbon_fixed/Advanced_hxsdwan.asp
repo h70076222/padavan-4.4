@@ -50,24 +50,6 @@ $j(document).ready(function() {
 <% wireguard_status(); %>
 <% login_state_hook(); %>
 
-var m_routelist = [<% get_nvram_list("wireguard", "wireguardroute"); %>];
-var mroutelist_ifield = 4;
-if(m_routelist.length > 0){
-	var m_routelist_ifield = m_routelist[0].length;
-	for (var i = 0; i < m_routelist.length; i++) {
-		m_routelist[i][mroutelist_ifield] = i;
-	}
-}
-
-var m_mapplist = [<% get_nvram_list("wireguard", "wireguardImapp"); %>];
-var mmapplist_ifield = 5;
-if(m_mapplist.length > 0){
-	var m_mapplist_ifield = m_mapplist[0].length;
-	for (var i = 0; i < m_mapplist.length; i++) {
-		m_mapplist[i][mmapplist_ifield] = i;
-	}
-}
-
 
 function initial(){
 	show_banner(2);
