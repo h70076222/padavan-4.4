@@ -24,8 +24,7 @@
 <script type="text/javascript" src="/help_b.js"></script>
 <script>
 var $j = jQuery.noConflict();
-<% wireguard_status(); %>
-<% login_state_hook(); %>
+
 $j(document).ready(function() {
 	
 	init_itoggle('wireguard_enable');
@@ -48,6 +47,9 @@ $j(document).ready(function() {
 
 </script>
 <script>
+<% wireguard_status(); %>
+<% login_state_hook(); %>
+
 var m_routelist = [<% get_nvram_list("wireguard", "wireguardroute"); %>];
 var mroutelist_ifield = 4;
 if(m_routelist.length > 0){
