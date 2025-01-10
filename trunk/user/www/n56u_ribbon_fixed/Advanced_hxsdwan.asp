@@ -28,13 +28,13 @@ var $j = jQuery.noConflict();
 $j(document).ready(function() {
 	
 	init_itoggle('wireguard_enable');
-	init_itoggle('wireguard_log');
-	init_itoggle('wireguard_proxy');
-	init_itoggle('wireguard_wg');
-	init_itoggle('wireguard_first');
-	init_itoggle('wireguard_finger');
-	init_itoggle('wireguard_serverw');
-	$j("#tab_wireguard_cfg, #tab_wireguard_pri, #tab_wireguard_sta, #tab_wireguard_log, #tab_wireguard_help").click(
+	init_itoggle('hxsdwan_log');
+	init_itoggle('hxsdwan_proxy');
+	init_itoggle('hxsdwan_wg');
+	init_itoggle('hxsdwan_first');
+	init_itoggle('hxsdwan_finger');
+	init_itoggle('hxsdwan_serverw');
+	$j("#tab_hxsdwan_cfg, #tab_hxsdwan_pri, #tab_hxsdwan_sta, #tab_hxsdwan_log, #tab_hxsdwan_help").click(
 	function () {
 		var newHash = $j(this).attr('href').toLowerCase();
 		showTab(newHash);
