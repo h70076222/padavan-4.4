@@ -54,7 +54,6 @@ function initial(){
 	show_menu(5,17,0);
 	showmenu();
 	show_footer();
-	change_wireguard_enable(1);
 	if (!login_safe())
         		textarea_scripts_enabled(0);
 }
