@@ -63,31 +63,6 @@ function showmenu(){
 	showhide_div('dtolink', found_app_ddnsto());
 	showhide_div('zelink', found_app_zerotier());
 }
-function fill_status(status_code){
-	var stext = "Unknown";
-	if (status_code == 0)
-		stext = "<#Stopped#>";
-	else if (status_code == 1)
-		stext = "<#Running#>";
-	$("wireguard_status").innerHTML = '<span class="label label-' + (status_code != 0 ? 'success' : 'warning') + '">' + stext + '</span>';
-}
-
-var arrHashes = ["cfg","pri","sta","log","help"];
-function showTab(curHash) {
-	var obj = $('tab_wireguard_' + curHash.slice(1));
-	if (obj == null || obj.style.display == 'none')
-	curHash = '#cfg';
-	for (var i = 0; i < arrHashes.length; i++) {
-		if (curHash == ('#' + arrHashes[i])) {
-			$j('#tab_wireguard_' + arrHashes[i]).parents('li').addClass('active');
-			$j('#wnd_wireguard_' + arrHashes[i]).show();
-		} else {
-			$j('#wnd_wireguard_' + arrHashes[i]).hide();
-			$j('#tab_wireguard_' + arrHashes[i]).parents('li').removeClass('active');
-			}
-		}
-	window.location.hash = curHash;
-}
 
 function applyRule(){
 	showLoading();
