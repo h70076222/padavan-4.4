@@ -45,7 +45,6 @@ $j(document).ready(function() {
 
 </script>
 <script>
-<% hxsdwan_status(); %>
 <% login_state_hook(); %>
 
 
@@ -106,7 +105,7 @@ function done_validating(action){
 }
 
 function textarea_scripts_enabled(v){
-    	inputCtrl(document.form['scripts.vnt.conf'], v);
+    	inputCtrl(document.form['scripts.vpn.conf'], v);
 }
 
 function button_hxsdwan_info(){
