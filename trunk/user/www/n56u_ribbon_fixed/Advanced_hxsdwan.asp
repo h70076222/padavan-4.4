@@ -27,13 +27,13 @@ var $j = jQuery.noConflict();
 $j(document).ready(function() {
 	
 	init_itoggle('wireguard_enable');
-	init_itoggle('wireguard_log');
-	init_itoggle('wireguard_proxy');
-	init_itoggle('wireguard_wg');
-	init_itoggle('wireguard_first');
-	init_itoggle('wireguard_finger');
-	init_itoggle('wireguard_serverw');
-	$j("#tab_wireguard_cfg, #tab_wireguard_pri, #tab_wireguard_sta, #tab_wireguard_log, #tab_wireguard_help").click(
+	init_itoggle('hxsdwan_log');
+	init_itoggle('hxsdwan_proxy');
+	init_itoggle('hxsdwan_wg');
+	init_itoggle('hxsdwan_first');
+	init_itoggle('hxsdwan_finger');
+	init_itoggle('hxsdwan_serverw');
+	$j("#tab_hxsdwan_cfg, #tab_hxsdwan_pri, #tab_hxsdwan_sta, #tab_hxsdwan_log, #tab_hxsdwan_help").click(
 	function () {
 		var newHash = $j(this).attr('href').toLowerCase();
 		showTab(newHash);
@@ -45,7 +45,7 @@ $j(document).ready(function() {
 
 </script>
 <script>
-<% wireguard_status(); %>
+<% hxsdwan_status(); %>
 <% login_state_hook(); %>
 
 
@@ -54,9 +54,9 @@ function initial(){
 	show_menu(5,17,0);
 	showmenu();
 	show_footer();
-	fill_status(wireguard_status());
+	fill_status(hxsdwan_status());
 	change_wireguard_enable(1);
-	change_wireguard_model(1);
+	change_hxsdwan_model(1);
 	if (!login_safe())
         		textarea_scripts_enabled(0);
 }
@@ -71,21 +71,21 @@ function fill_status(status_code){
 		stext = "<#Stopped#>";
 	else if (status_code == 1)
 		stext = "<#Running#>";
-	$("wireguard_status").innerHTML = '<span class="label label-' + (status_code != 0 ? 'success' : 'warning') + '">' + stext + '</span>';
+	$("hxsdwan_status").innerHTML = '<span class="label label-' + (status_code != 0 ? 'success' : 'warning') + '">' + stext + '</span>';
 }
 
 var arrHashes = ["cfg","pri","sta","log","help"];
 function showTab(curHash) {
-	var obj = $('tab_wireguard_' + curHash.slice(1));
+	var obj = $('tab_hxsdwan_' + curHash.slice(1));
 	if (obj == null || obj.style.display == 'none')
 	curHash = '#cfg';
 	for (var i = 0; i < arrHashes.length; i++) {
 		if (curHash == ('#' + arrHashes[i])) {
-			$j('#tab_wireguard_' + arrHashes[i]).parents('li').addClass('active');
-			$j('#wnd_wireguard_' + arrHashes[i]).show();
+			$j('#tab_hxsdwan_' + arrHashes[i]).parents('li').addClass('active');
+			$j('#wnd_hxsdwan_' + arrHashes[i]).show();
 		} else {
-			$j('#wnd_wireguard_' + arrHashes[i]).hide();
-			$j('#tab_wireguard_' + arrHashes[i]).parents('li').removeClass('active');
+			$j('#wnd_hxsdwan_' + arrHashes[i]).hide();
+			$j('#tab_hxsdwan_' + arrHashes[i]).parents('li').removeClass('active');
 			}
 		}
 	window.location.hash = curHash;
@@ -104,14 +104,11 @@ function applyRule(){
 function done_validating(action){
 	refreshpage();
 }
-function fill_status(status_code){
-	var stext = "Unknown";
-	if (status_code == 0)
-		stext = "<#Stopped#>";
-	else if (status_code == 1)
-		stext = "<#Running#>";
-	$("wireguard_status").innerHTML = '<span class="label label-' + (status_code != 0 ? 'success' : 'warning') + '">' + stext + '</span>';
+
+function textarea_scripts_enabled(v){
+    	inputCtrl(document.form['scripts.vnt.conf'], v);
 }
+
 function button_hxsdwan_info(){
 	var $j = jQuery.noConflict();
 	$j('#btn_info').attr('disabled', 'disabled');
