@@ -44,7 +44,6 @@ $j(document).ready(function() {
 });
 
 
-
 </script>
 <script>
 <% login_state_hook(); %>
