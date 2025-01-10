@@ -45,6 +45,7 @@ $j(document).ready(function() {
 
 </script>
 <script>
+<% wireguard_status(); %>
 <% login_state_hook(); %>
 
 
@@ -53,9 +54,9 @@ function initial(){
 	show_menu(5,17,0);
 	showmenu();
 	show_footer();
-	fill_status(hxsdwan_status());
-	change_hxsdwan_enable(1);
-	change_hxsdwan_model(1);
+	fill_status(wireguard_status());
+	change_wireguard_enable(1);
+	change_wireguard_model(1);
 	if (!login_safe())
         		textarea_scripts_enabled(0);
 }
