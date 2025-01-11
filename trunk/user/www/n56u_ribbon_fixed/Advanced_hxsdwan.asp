@@ -69,7 +69,7 @@ function fill_status(status_code){
 		stext = "<#Stopped#>";
 	else if (status_code == 1)
 		stext = "<#Running#>";
-	$("hxsdwan_status").innerHTML = '<span class="label label-' + (status_code != 0 ? 'success' : 'warning') + '">' + stext + '</span>';
+	$("wireguard_status").innerHTML = '<span class="label label-' + (status_code != 0 ? 'success' : 'warning') + '">' + stext + '</span>';
 }
 
 var arrHashes = ["cfg","pri","sta","log","help"];
@@ -104,7 +104,7 @@ function done_validating(action){
 }
 
 function textarea_scripts_enabled(v){
-    	inputCtrl(document.form['scripts.vpn.conf'], v);
+    	inputCtrl(document.form['scripts.wireguard.conf'], v);
 }
 
 function button_hxsdwan_info(){
