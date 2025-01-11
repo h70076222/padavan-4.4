@@ -23,6 +23,7 @@
 <script type="text/javascript" src="/help.js"></script>
 <script>
 var $j = jQuery.noConflict();
+<% hxsdwan_status(); %>
 <% login_state_hook(); %>
 $j(document).ready(function() {
 	
@@ -51,7 +52,7 @@ function initial(){
 	show_menu(5,17,0);
 	showmenu();
 	show_footer();
-	fill_status(wireguard_status());
+	fill_status(hxsdwan_status());
 	change_wireguard_enable(1);
 	change_hxsdwan_model(1);
 	if (!login_safe())
@@ -68,7 +69,7 @@ function fill_status(status_code){
 		stext = "<#Stopped#>";
 	else if (status_code == 1)
 		stext = "<#Running#>";
-	$("wireguard_status").innerHTML = '<span class="label label-' + (status_code != 0 ? 'success' : 'warning') + '">' + stext + '</span>';
+	$("hxsdwan_status").innerHTML = '<span class="label label-' + (status_code != 0 ? 'success' : 'warning') + '">' + stext + '</span>';
 }
 
 var arrHashes = ["cfg","pri","sta","log","help"];
