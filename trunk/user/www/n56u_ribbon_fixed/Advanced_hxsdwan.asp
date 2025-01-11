@@ -112,7 +112,7 @@ function button_hxsdwan_info(){
 	var $j = jQuery.noConflict();
 	$j('#btn_info').attr('disabled', 'disabled');
 	$j.post('/apply.cgi', {
-		'action_mode': ' CMDvpninfo ',
+		'action_mode': '/usr/bin/wireguard.sh vpninfo &',
 		'next_host': 'Advanced_hxsdwan.asp#sta'
 	}).always(function() {
 		setTimeout(function() {
@@ -125,7 +125,7 @@ function button_hxsdwan_all(){
 	var $j = jQuery.noConflict();
 	$j('#btn_all').attr('disabled', 'disabled');
 	$j.post('/apply.cgi', {
-		'action_mode': ' CMDvpnall ',
+		'action_mode': '/usr/bin/wireguard.sh vpnall &',
 		'next_host': 'Advanced_hxsdwan.asp#sta'
 	}).always(function() {
 		setTimeout(function() {
