@@ -23,7 +23,6 @@
 <script type="text/javascript" src="/help.js"></script>
 <script>
 var $j = jQuery.noConflict();
-<% wireguard_status(); %>
 <% login_state_hook(); %>
 $j(document).ready(function() {
 	
