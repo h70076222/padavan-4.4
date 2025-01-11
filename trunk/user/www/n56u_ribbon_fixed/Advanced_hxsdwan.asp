@@ -23,7 +23,8 @@
 <script type="text/javascript" src="/help.js"></script>
 <script>
 var $j = jQuery.noConflict();
-
+<% wireguard_status(); %>
+<% login_state_hook(); %>
 $j(document).ready(function() {
 	
 	init_itoggle('wireguard_enable');
@@ -45,15 +46,13 @@ $j(document).ready(function() {
 
 </script>
 <script>
-<% login_state_hook(); %>
-
 
 function initial(){
 	show_banner(2);
 	show_menu(5,17,0);
 	showmenu();
 	show_footer();
-	fill_status(hxsdwan_status());
+	fill_status(wireguard_status());
 	change_wireguard_enable(1);
 	change_hxsdwan_model(1);
 	if (!login_safe())
