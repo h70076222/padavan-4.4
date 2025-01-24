@@ -1,18 +1,7 @@
-SRC_NAME=sqlite-autoconf-3260000
-SRC_URL=https://www.sqlite.org/2018/$(SRC_NAME).tar.gz
+SRC_NAME=sqlite-3390400
 
-all: download_test extract_test config_test
+all: config_test
 	$(MAKE) -j$(HOST_NCPU) -C $(SRC_NAME)
-
-download_test:
-	( if [ ! -f $(SRC_NAME).tar.gz ]; then \
-		wget -t5 --timeout=20 --no-check-certificate -O $(SRC_NAME).tar.gz $(SRC_URL); \
-	fi )
-
-extract_test:
-	( if [ ! -d $(SRC_NAME) ]; then \
-		tar zxf $(SRC_NAME).tar.gz; \
-	fi )
 
 config_test:
 	( if [ -f ./config_done ]; then \
@@ -28,6 +17,7 @@ configure:
 		$(if $(LIBS_BUILD_SHARED),--disable-static,--enable-static) \
 		$(if $(LIBS_BUILD_SHARED),--enable-shared,--disable-shared) \
 		--disable-readline \
+		--disable-editline \
 		--disable-dynamic-extensions \
 		--disable-fts3 \
 		--disable-fts4 \
@@ -54,4 +44,3 @@ romfs:
 ifeq ($(LIBS_BUILD_SHARED),y)
 	cp -fP $(DESTDIR)/lib/libsqlite3.so* $(ROMFSDIR)/lib ;
 endif
-
