@@ -117,6 +117,7 @@ dir_y						+= inadyn
 dir_y						+= miniupnpd
 dir_y						+= dnsmasq
 dir_y						+= igmpproxy
+ifneq ($(CONFIG_FIRMWARE_INCLUDE_MSD_LITE),y)
 dir_y						+= udpxy
 dir_y						+= utils
 dir_y						+= lanauth
