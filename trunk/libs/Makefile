@@ -197,6 +197,10 @@ dir_$(LIBS_INCLUDE_BOOST)			+= boost
 dir_y						+= libnfnetlink
 dir_y						+= libconfuse
 dir_y						+= libmnl
+# ipset shared libs
+ifneq ($(CONFIG_WITHOUT_KERNEL),y)
+dir_$(CONFIG_FIRMWARE_INCLUDE_IPSET)		+= libmnl
+endif
 dir_$(LIBS_INCLUDE_LIBPCAP)		+= libpcap
 
 # minidlna and firefly shared libs
