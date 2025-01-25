@@ -6,7 +6,7 @@
 #define BOARD_VENDOR_NAME	"H3c Tx18nvnw"
 #define BOARD_VENDOR_URL	"https://www.h3c.com/"
 #define BOARD_MODEL_URL		"https://www.h3c.com/"
-#define BOARD_BOOT_TIME		30
+#define BOARD_BOOT_TIME		20
 #define BOARD_FLASH_TIME	120
 
 #define BOARD_HAS_5G_11AC		0
