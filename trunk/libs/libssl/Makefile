@@ -1,4 +1,4 @@
-SRC_NAME=openssl-1.1.1k
+SRC_NAME=openssl-1.1.1s
 SRC_URL=https://www.openssl.org/source/$(SRC_NAME).tar.gz
 
 # openssl use CROSS_COMPILE prefix
@@ -80,4 +80,3 @@ romfs:
 ifeq ($(CONFIG_FIRMWARE_INCLUDE_OPENSSL_EXE),y)
 	$(ROMFSINST) $(SRC_NAME)/apps/openssl /usr/bin/openssl
 endif
-
