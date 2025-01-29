@@ -1,13 +1,12 @@
 /*
  * mtd - simple memory technology device manipulation tool
  *
- * Copyright (C) 2005 Waldemar Brodkorb <wbx@dass-it.de>,
- *	                  Felix Fietkau <nbd@openwrt.org>
+ * Copyright (C) 2005      Waldemar Brodkorb <wbx@dass-it.de>,
+ * Copyright (C) 2005-2009 Felix Fietkau <nbd@nbd.name>
  *
  * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
+ * modify it under the terms of the GNU General Public License v2
+ * as published by the Free Software Foundation.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -18,107 +17,62 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- * $Id: mtd.c,v 1.1 2009-03-17 09:48:42 steven Exp $
  *
  * The code is based on the linux-mtd examples.
  */
 
+#define _GNU_SOURCE
+#include <byteswap.h>
+#include <endian.h>
+#include <limits.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <fcntl.h>
-#include <errno.h>
-#include <error.h>
-#include <string.h>
+#include <stdint.h>
+#include <signal.h>
 #include <sys/ioctl.h>
 #include <sys/syscall.h>
+#include <fcntl.h>
+#include <errno.h>
+#include <time.h>
+#include <string.h>
+#include <sys/ioctl.h>
+#include <sys/types.h>
 #include <sys/param.h>
+#include <sys/mount.h>
 #include <sys/stat.h>
 #include <sys/reboot.h>
 #include <linux/reboot.h>
+#include <mtd/mtd-user.h>
+//#include "fis.h"
+#include "mtd.h"
 
-#include <mtd-abi.h>
+//#include <libubox/md5.h>
 
-#define BUFSIZE		(1024)
-#define MAX_ARGS	3
+#define MAX_ARGS 8
+#define JFFS2_DEFAULT_DIR	"" /* directory name without /, empty means root dir */
 
-#ifndef ROUNDUP
-#define ROUNDUP(x, y)	((((x)+((y)-1))/(y))*(y))
+#define TRX_MAGIC		0x48445230	/* "HDR0" */
+#define SEAMA_MAGIC		0x5ea3a417
+#define WRGG03_MAGIC		0x20080321
+
+#if !defined(__BYTE_ORDER)
+#error "Unknown byte order"
 #endif
 
-static int quiet = 0;
-static int no_erase = 0;
-static int write_check = 1;
+#if __BYTE_ORDER == __BIG_ENDIAN
+#define cpu_to_be32(x)	(x)
+#define be32_to_cpu(x)	(x)
+#define le32_to_cpu(x)	bswap_32(x)
+#elif __BYTE_ORDER == __LITTLE_ENDIAN
+#define cpu_to_be32(x)	bswap_32(x)
+#define be32_to_cpu(x)	bswap_32(x)
+#define le32_to_cpu(x)  (x)
+#else
+#error "Unsupported endianness"
+#endif
 
-static int
-mtd_open(const char *mtd, int flags, struct mtd_info_user *p_mi)
-{
-	FILE *fp;
-	char line[128], bnm[64], *p;
-	int i, idx, fd;
-
-	idx = -1;
-
-	if ((fp = fopen("/proc/mtd", "r"))) {
-		fgets(line, sizeof(line), fp); //skip the 1st line
-		while (fgets(line, sizeof(line), fp)) {
-			if (sscanf(line, "mtd%d: %*s %*s \"%s\"", &i, bnm) > 1) {
-				/* strip tailed " character, if present. */
-				if ((p = strchr(bnm, '"')) != NULL)
-					*p = '\0';
-				if (!strcmp(bnm, mtd)) {
-					idx = i;
-					break;
-				}
-			}
-		}
-		fclose(fp);
-	image_file = "<stdin>";
-
-	part_ofs = 0;
-
-	while ((ch = getopt(argc, argv, "wrnqe:o:l:p:")) != -1) {
-		switch (ch) {
-			case 'w':
-				write_check = 0;
-				break;
-			case 'r':
-				do_reboot = 1;
-				break;
-			case 'n':
-				no_erase = 1;
-				break;
-			case 'q':
-				quiet++;
-				break;
-			case 'e':
-				i = 0;
-				while ((erase[i] != NULL) && ((i + 1) < MAX_ARGS))
-					i++;
-					
-				erase[i++] = optarg;
-				erase[i] = NULL;
-				break;
-			case 'o':
-				image_ofs = strtoll(optarg, NULL, 0);
-				break;
-			case 'l':
-				image_len = strtoll(optarg, NULL, 0);
-				break;
-			case 'p':
-				part_ofs = strtoul(optarg, 0, 0);
-				break;
-			case '?':
-			default:
-				usage();
-		}
-	}
-
-	argc -= optind;
-	argv += optind;
-
-	if (argc < 2)
-		usage();
+enum mtd_image_format {
 
 	if ((strcmp(argv[0], "unlock") == 0) && (argc == 2)) {
 		cmd = CMD_UNLOCK;
@@ -126,40 +80,57 @@ mtd_open(const char *mtd, int flags, struct mtd_info_user *p_mi)
 	} else if ((strcmp(argv[0], "erase") == 0) && (argc == 2)) {
 		cmd = CMD_ERASE;
 		device = argv[1];
+	} else if (((strcmp(argv[0], "resetbc") == 0) && (argc == 2)) && mtd_resetbc) {
+		cmd = CMD_RESETBC;
+		device = argv[1];
+	} else if (((strcmp(argv[0], "fixtrx") == 0) && (argc == 2)) && mtd_fixtrx) {
+		cmd = CMD_FIXTRX;
+		device = argv[1];
+	} else if (((strcmp(argv[0], "fixseama") == 0) && (argc == 2)) && mtd_fixseama) {
+		cmd = CMD_FIXSEAMA;
+		device = argv[1];
+	} else if (((strcmp(argv[0], "fixwrgg") == 0) && (argc == 2)) && mtd_fixwrgg) {
+		cmd = CMD_FIXWRGG;
+		device = argv[1];
+	} else if ((strcmp(argv[0], "verify") == 0) && (argc == 3)) {
+		cmd = CMD_VERIFY;
+		imagefile = argv[1];
+		device = argv[2];
+	} else if ((strcmp(argv[0], "dump") == 0) && (argc == 2)) {
+		cmd = CMD_DUMP;
+		device = argv[1];
 	} else if ((strcmp(argv[0], "write") == 0) && (argc == 3)) {
 		cmd = CMD_WRITE;
 		device = argv[2];
-		
-		if (strcmp(argv[1], "-") != 0) {
-			image_file = argv[1];
-			if ((image_fd = open(image_file, O_RDONLY)) < 0) {
-				fprintf(stderr, "Couldn't open image file: '%s'!\n", image_file);
+
+		if (strcmp(argv[1], "-") == 0) {
+			imagefile = "<stdin>";
+			imagefd = 0;
+		} else {
+			imagefile = argv[1];
+			if ((imagefd = open(argv[1], O_RDONLY)) < 0) {
+				fprintf(stderr, "Couldn't open image file: %s!\n", imagefile);
 				exit(1);
 			}
-			
-			if (image_len == 0) {
-				struct stat st;
-				if (fstat(image_fd, &st) < 0) {
-					fprintf(stderr, "Couldn't get stat of image file '%s' (errno: %d)!\n", image_file, errno);
-					close(image_fd);
-					exit(1);
-				}
-				if (st.st_size < 1) {
-					fprintf(stderr, "Image file '%s' is empty!\n", image_file);
-					close(image_fd);
-					exit(1);
-				}
-				
-				image_len = st.st_size;
-				if (image_ofs > 0 && image_len > image_ofs) {
-					if (lseek(image_fd, image_ofs, SEEK_SET) < 0) {
-						fprintf(stderr, "Unable seek to offset 0x%lx in file '%s' (errno: %d)!\n", image_ofs, image_file, errno);
-						close(image_fd);
-						exit(1);
-					}
-					image_len -= image_ofs;
-				}
-			}
+		}
+
+		if (!mtd_check(device)) {
+			fprintf(stderr, "Can't open device for writing!\n");
+			exit(1);
+		}
+		/* check trx file before erasing or writing anything */
+		if (!image_check(imagefd, device) && !force) {
+			fprintf(stderr, "Image check failed.\n");
+			exit(1);
+		}
+	} else if ((strcmp(argv[0], "jffs2write") == 0) && (argc == 3)) {
+		cmd = CMD_JFFS2WRITE;
+		device = argv[2];
+
+		imagefile = argv[1];
+		if (!mtd_check(device)) {
+			fprintf(stderr, "Can't open device for writing!\n");
+			exit(1);
 		}
 	} else {
 		usage();
@@ -177,27 +148,56 @@ mtd_open(const char *mtd, int flags, struct mtd_info_user *p_mi)
 		i++;
 	}
 
-	if (!unlocked)
-		mtd_unlock(device);
-
 	switch (cmd) {
 		case CMD_UNLOCK:
+			if (!unlocked)
+				mtd_unlock(device);
+			break;
+		case CMD_VERIFY:
+		//	mtd_verify(device, imagefile);
+			break;
+		case CMD_DUMP:
+			mtd_dump(device, offset, dump_len);
 			break;
 		case CMD_ERASE:
+			if (!unlocked)
+				mtd_unlock(device);
 			mtd_erase(device);
 			break;
 		case CMD_WRITE:
-			mtd_write(device, part_ofs, image_file, image_fd, image_len);
+			if (!unlocked)
+				mtd_unlock(device);
+			mtd_write(imagefd, device, fis_layout, part_offset);
+			break;
+		case CMD_JFFS2WRITE:
+			if (!unlocked)
+				mtd_unlock(device);
+			mtd_write_jffs2(device, imagefile, jffs2dir);
+			break;
+		case CMD_FIXTRX:
+			if (mtd_fixtrx) {
+				mtd_fixtrx(device, offset, data_size);
+			}
+			break;
+		case CMD_RESETBC:
+			if (mtd_resetbc) {
+				mtd_resetbc(device);
+			}
+			break;
+		case CMD_FIXSEAMA:
+			if (mtd_fixseama)
+				mtd_fixseama(device, 0, data_size);
+			break;
+		case CMD_FIXWRGG:
+			if (mtd_fixwrgg)
+				mtd_fixwrgg(device, 0, data_size);
 			break;
 	}
 
 	sync();
 
-	if (do_reboot) {
-		fprintf(stderr, "Rebooting ...\n");
-		fflush(stderr);
-		syscall(SYS_reboot,LINUX_REBOOT_MAGIC1,LINUX_REBOOT_MAGIC2,LINUX_REBOOT_CMD_RESTART,NULL);
-	}
+	if (boot)
+		do_reboot();
 
 	return 0;
 }
