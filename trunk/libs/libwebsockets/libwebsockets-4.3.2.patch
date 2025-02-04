@@ -1,7 +1,6 @@
-diff --git libwebsockets-4.3.3/cmake/lws_config.h.in libwebsockets-4.3.3/cmake/lws_config.h.in
-index e69d084..af453aa 100644
---- libwebsockets-4.3.3/cmake/lws_config.h.in
-+++ libwebsockets-4.3.3/cmake/lws_config.h.in
+diff -rupw libwebsockets-4.1.4-orig/cmake/lws_config.h.in libwebsockets-4.1.4/cmake/lws_config.h.in
+--- libwebsockets-4.1.4-orig/cmake/lws_config.h.in	2020-10-26 19:31:31.000000000 +0800
++++ libwebsockets-4.1.4/cmake/lws_config.h.in	2020-12-30 09:55:18.141019011 +0800
 @@ -7,7 +7,7 @@
  #endif
  
