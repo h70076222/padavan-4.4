@@ -1,0 +1,13 @@
+diff --git libwebsockets-4.3.3/cmake/lws_config.h.in libwebsockets-4.3.3/cmake/lws_config.h.in
+index e69d084..af453aa 100644
+--- libwebsockets-4.3.3/cmake/lws_config.h.in
++++ libwebsockets-4.3.3/cmake/lws_config.h.in
+@@ -7,7 +7,7 @@
+ #endif
+ 
+ #define LWS_INSTALL_DATADIR "${CMAKE_INSTALL_PREFIX}/share"
+-#define LWS_INSTALL_LIBDIR "${CMAKE_INSTALL_PREFIX}/${LWS_INSTALL_LIB_DIR}${LIB_SUFFIX}"
++#define LWS_INSTALL_LIBDIR "/lib"
+ #define LWS_LIBRARY_VERSION_MAJOR ${LWS_LIBRARY_VERSION_MAJOR}
+ #define LWS_LIBRARY_VERSION_MINOR ${LWS_LIBRARY_VERSION_MINOR}
+ #define LWS_LIBRARY_VERSION_PATCH_ELABORATED ${LWS_LIBRARY_VERSION_PATCH_ELABORATED}
