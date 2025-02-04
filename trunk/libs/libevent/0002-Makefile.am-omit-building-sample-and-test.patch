@@ -10,4 +10,3 @@
 +#include test/include.am
  
  if BUILD_WIN32
- 
