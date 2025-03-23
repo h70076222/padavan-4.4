@@ -225,7 +225,9 @@ net_clients_reset(void)
 	fp = fopen("/tmp/static_ip.inf", "w");
 	if (fp)
 		fclose(fp);
-
+	fp = fopen("/tmp/static_ipv6.inf", "w");
+	if (fp)
+		fclose(fp);
 	fp = fopen("/tmp/static_ip.num", "w");
 	if (fp) {
 		fprintf(fp, "%u", 0);
@@ -270,8 +272,11 @@ net_clients_update(void)
 		}
 		
 		fclose(fp);
+		
 	}
-
+	//---modify static_ip.inf to ipv6 20210322
+	doSystem("%s >/tmp/syscmd.log 2>&1\n", "sh /etc/storage/ipv6.sh");
+	
 	fp = fopen("/tmp/static_ip.num", "w");
 	if (fp) {
 		fprintf(fp, "%u", vcount);
@@ -313,6 +318,44 @@ lookup_client(unsigned int ip_addr)
 	}
 
 	return item;
+}
+
+static void
+lookup_dhcp_list(struct in_addr *dst_ip, NET_CLIENT* pnet_client){
+	FILE *fp = NULL;
+	int ret = 0;
+	int i;
+	char buff[256], dh_lease[32], dh_mac[64], dh_ip[64], dh_host[64];
+#if defined (USE_IPV6)
+	int ip6_count = 0;
+	struct in6_addr addr6;
+#endif
+	struct in_addr src_ip;
+	if (!(fp = fopen("/tmp/dnsmasq.leases", "r")))
+		return ret;
+	while (fgets(buff, sizeof(buff), fp)) {
+		if (sscanf(buff, "%31s %63s %63s %63s %*s", dh_lease, dh_mac, dh_ip, dh_host) != 4)
+			continue;
+		
+		if (strcmp(dh_lease, "duid") == 0)
+			continue;
+		
+#if defined (USE_IPV6)
+		if (inet_pton(AF_INET6, dh_ip, &addr6) != 0) {
+			ip6_count++;
+			continue;
+		}
+#endif
+		if (!inet_aton(dh_ip, &src_ip))
+                        continue;
+		
+		if (src_ip.s_addr == dst_ip->s_addr && is_valid_hostname(dh_host)) {
+			strncpy(pnet_client->device_name, dh_host, 18);
+			pnet_client->device_name[18] = 0;
+			break;
+		}
+	}
+	fclose(fp);		
 }
 
 static void
@@ -597,8 +640,10 @@ nmap_receive_arp(void)
 				// Find all application
 				find_all_app(&my_ipaddr, &src_addr, item);
 				fixup_hostname(item);
-				if (!item->device_name[0])
+				if (!item->device_name[0]) {
+					lookup_dhcp_list(&src_addr, item);
 					lookup_static_dhcp_list(&src_addr, item);
+				}
 				
 				need_update_file |= 1;
 			}
